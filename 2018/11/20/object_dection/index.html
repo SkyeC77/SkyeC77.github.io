@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="基于深度学习的目标检测算法持续更新~ 最近为了做毕设，重新开始看目标检测相关的一系列论文，在这里记录一下自己的学习过程，也方便以后复习。  R-CNN / 2013.11论文：Rich feature hierarchies for accurate object detection and semantic segmentation Ross Girshick等人发表的这篇文章，首次将卷积神经网">
+<meta name="description" content="基于深度学习的目标检测算法未写完… 最近为了做毕设，重新开始看目标检测相关的一系列论文，在这里记录一下自己的学习过程，也方便以后复习。  R-CNN / 2013.11论文：Rich feature hierarchies for accurate object detection and semantic segmentation Ross Girshick等人发表的这篇文章，首次将卷积神经网络">
 <meta property="og:type" content="article">
 <meta property="og:title" content="目标检测学习之路">
 <meta property="og:url" content="http://yoursite.com/2018/11/20/object_dection/index.html">
 <meta property="og:site_name" content="Skye">
-<meta property="og:description" content="基于深度学习的目标检测算法持续更新~ 最近为了做毕设，重新开始看目标检测相关的一系列论文，在这里记录一下自己的学习过程，也方便以后复习。  R-CNN / 2013.11论文：Rich feature hierarchies for accurate object detection and semantic segmentation Ross Girshick等人发表的这篇文章，首次将卷积神经网">
+<meta property="og:description" content="基于深度学习的目标检测算法未写完… 最近为了做毕设，重新开始看目标检测相关的一系列论文，在这里记录一下自己的学习过程，也方便以后复习。  R-CNN / 2013.11论文：Rich feature hierarchies for accurate object detection and semantic segmentation Ross Girshick等人发表的这篇文章，首次将卷积神经网络">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14184962-b09b84954606caab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/480">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14184962-21a69ced5d0e9931.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/480">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14184962-6b7b39eab6305a67.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/480">
-<meta property="og:updated_time" content="2018-11-20T06:32:20.927Z">
+<meta property="og:updated_time" content="2018-11-23T11:58:35.990Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="目标检测学习之路">
-<meta name="twitter:description" content="基于深度学习的目标检测算法持续更新~ 最近为了做毕设，重新开始看目标检测相关的一系列论文，在这里记录一下自己的学习过程，也方便以后复习。  R-CNN / 2013.11论文：Rich feature hierarchies for accurate object detection and semantic segmentation Ross Girshick等人发表的这篇文章，首次将卷积神经网">
+<meta name="twitter:description" content="基于深度学习的目标检测算法未写完… 最近为了做毕设，重新开始看目标检测相关的一系列论文，在这里记录一下自己的学习过程，也方便以后复习。  R-CNN / 2013.11论文：Rich feature hierarchies for accurate object detection and semantic segmentation Ross Girshick等人发表的这篇文章，首次将卷积神经网络">
 <meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/14184962-b09b84954606caab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/480">
 
 
@@ -303,7 +303,7 @@
       
 
       
-        <h1 id="基于深度学习的目标检测算法"><a href="#基于深度学习的目标检测算法" class="headerlink" title="基于深度学习的目标检测算法"></a>基于深度学习的目标检测算法</h1><p>持续更新~</p>
+        <h1 id="基于深度学习的目标检测算法"><a href="#基于深度学习的目标检测算法" class="headerlink" title="基于深度学习的目标检测算法"></a>基于深度学习的目标检测算法</h1><p>未写完…</p>
 <p>最近为了做毕设，重新开始看目标检测相关的一系列论文，在这里记录一下自己的学习过程，也方便以后复习。</p>
 <hr>
 <h2 id="R-CNN-2013-11"><a href="#R-CNN-2013-11" class="headerlink" title="R-CNN / 2013.11"></a>R-CNN / 2013.11</h2><p>论文：<a href="https://arxiv.org/abs/1311.2524" target="_blank" rel="noopener">Rich feature hierarchies for accurate object detection and semantic segmentation</a></p>
@@ -321,7 +321,7 @@
 <p>卷积层的参数和输入大小无关，它仅是一个卷积核在图像上滑动，对不同大小的图片卷积得到不同大小的特征图（feature map)；但是<strong>全连接层（FC Layer）</strong>情况则不一样。由于全连接层把输入的所有像素点连接起来，需要指定输入层神经元个数和输出层神经元个数，所以必须规定输入的特征图大小，以指定参数个数。</p>
 <p><strong>SPP-Net解决方法</strong></p>
 <p> SPP-Net在最后一个卷积层后，接入了<strong>金字塔池化（spatial pyramid pooling)层</strong>，使用这种方式，可以让网络输入任意的图片，而且还会生成固定大小的输出。</p>
-<p><strong>什么是金字塔池化？</strong><br><img src="https://upload-images.jianshu.io/upload_images/14184962-6b7b39eab6305a67.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/480" alt=""><br>从图中分析，黑色图片代表Conv5之后的feature map，其大小任意。接着以不同大小的块来提取特征，分别是4<em>4，2</em>2，1<em>1，将这三张网格放到下面这张特征图上，就可以得到16+4+1=21种不同的块(Spatial bins)，我们从这21个块中，每个块提取出一个特征，这样刚好就是我们要提取的21维特征向量。这种以不同的大小格子的组合方式来池化的过程就是空间金字塔池化（SPP）。如果要进行空间金字塔最大池化，就是从这21个图片块中，分别计算每个块的最大值，从而得到一个21维特征的输出单元。共用256个滤波器，最终输出向量大小固定为**bins\</em>filters*<em>，即（16+4+1)\</em>256，作为全连接层的输入。</p>
+<p><strong>什么是金字塔池化？</strong><br><img src="https://upload-images.jianshu.io/upload_images/14184962-6b7b39eab6305a67.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/480" alt=""><br>从图中分析，黑色图片代表Conv5之后的feature map，其大小任意。接着以不同大小的块来提取特征，分别是4*4，2*2，1*1，将这三张网格放到下面这张特征图上，就可以得到16+4+1=21种不同的块(Spatial bins)，我们从这21个块中，每个块提取出一个特征，这样刚好就是我们要提取的21维特征向量。这种以不同的大小格子的组合方式来池化的过程就是空间金字塔池化（SPP）。如果要进行空间金字塔最大池化，就是从这21个图片块中，分别计算每个块的最大值，从而得到一个21维特征的输出单元。共用256个滤波器，最终输出向量大小固定为<strong>bins*filters</strong>，即（16+4+1)*256，作为全连接层的输入。</p>
 <p>总的来说，金字塔池化意义在于<strong>多尺度特征提取出固定大小的特征向量</strong>。</p>
 <hr>
 <h2 id="Fast-R-CNN-2015-4"><a href="#Fast-R-CNN-2015-4" class="headerlink" title="Fast R-CNN / 2015.4"></a>Fast R-CNN / 2015.4</h2><p>论文：<a href="http://link.zhihu.com/?target=https%3A//arxiv.org/abs/1504.08083" target="_blank" rel="noopener">Fast R-CNN</a></p>
@@ -361,8 +361,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/11/23/ReceptiveField/" rel="prev" title="">
-                 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/11/23/ReceptiveField/" rel="prev" title="Receptive Field">
+                Receptive Field <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

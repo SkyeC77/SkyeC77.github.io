@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="感受野（Receptive Field)之前一直不是很理解感受野是什么，因此认真地看了下相关知识，在这里记录一下~  感受野，指的是一个特定的CNN特征在输入空间所受影响的区域，可以用中心位置(center location)和大小(size)来表征。 由于网络结构中普遍使用卷积层和池化层，层与层之间均通过sliding filter进行局部相连，所以每一个神经元都无法对原始图像的所有信息进行感">
+<meta name="description" content="感受野（Receptive Field)之前一直不是很理解感受野是什么，因此认真地看了下相关知识，在这里记录一下~  感受野，指的是一个特定的CNN特征在输入空间所受影响的区域，可以用中心位置(center location)和大小(size)来表征。 由于网络结构中普遍使用卷积层和池化层，层与层之间均通过sliding filter进行局部相连，所以每一个神经元都无法对原始图像的所有信息进行感知">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Skye">
+<meta property="og:title" content="Receptive Field">
 <meta property="og:url" content="http://yoursite.com/2018/11/23/ReceptiveField/index.html">
 <meta property="og:site_name" content="Skye">
-<meta property="og:description" content="感受野（Receptive Field)之前一直不是很理解感受野是什么，因此认真地看了下相关知识，在这里记录一下~  感受野，指的是一个特定的CNN特征在输入空间所受影响的区域，可以用中心位置(center location)和大小(size)来表征。 由于网络结构中普遍使用卷积层和池化层，层与层之间均通过sliding filter进行局部相连，所以每一个神经元都无法对原始图像的所有信息进行感">
+<meta property="og:description" content="感受野（Receptive Field)之前一直不是很理解感受野是什么，因此认真地看了下相关知识，在这里记录一下~  感受野，指的是一个特定的CNN特征在输入空间所受影响的区域，可以用中心位置(center location)和大小(size)来表征。 由于网络结构中普遍使用卷积层和池化层，层与层之间均通过sliding filter进行局部相连，所以每一个神经元都无法对原始图像的所有信息进行感知">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-23T11:55:50.379Z">
+<meta property="og:updated_time" content="2018-11-23T12:00:28.671Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Skye">
-<meta name="twitter:description" content="感受野（Receptive Field)之前一直不是很理解感受野是什么，因此认真地看了下相关知识，在这里记录一下~  感受野，指的是一个特定的CNN特征在输入空间所受影响的区域，可以用中心位置(center location)和大小(size)来表征。 由于网络结构中普遍使用卷积层和池化层，层与层之间均通过sliding filter进行局部相连，所以每一个神经元都无法对原始图像的所有信息进行感">
+<meta name="twitter:title" content="Receptive Field">
+<meta name="twitter:description" content="感受野（Receptive Field)之前一直不是很理解感受野是什么，因此认真地看了下相关知识，在这里记录一下~  感受野，指的是一个特定的CNN特征在输入空间所受影响的区域，可以用中心位置(center location)和大小(size)来表征。 由于网络结构中普遍使用卷积层和池化层，层与层之间均通过sliding filter进行局部相连，所以每一个神经元都无法对原始图像的所有信息进行感知">
 
 
 
@@ -125,7 +125,7 @@
 
 
 
-  <title> | Skye</title>
+  <title>Receptive Field | Skye</title>
   
 
 
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">Receptive Field</h1>
         
 
         <div class="post-meta">
@@ -299,8 +299,7 @@
       
 
       
-        <hr>
-<h2 id="感受野（Receptive-Field"><a href="#感受野（Receptive-Field" class="headerlink" title="感受野（Receptive Field)"></a>感受野（<em>Receptive Field</em>)</h2><p>之前一直不是很理解感受野是什么，因此认真地看了下相关知识，在这里记录一下~</p>
+        <h1 id="感受野（Receptive-Field"><a href="#感受野（Receptive-Field" class="headerlink" title="感受野（Receptive Field)"></a>感受野（<em>Receptive Field</em>)</h1><p>之前一直不是很理解感受野是什么，因此认真地看了下相关知识，在这里记录一下~</p>
 <hr>
 <p>感受野，指的是一个特定的CNN特征在输入空间所受影响的区域，可以用<strong>中心位置</strong>(<em>center location</em>)和<strong>大小</strong>(<em>size</em>)来表征。</p>
 <p>由于网络结构中普遍使用卷积层和池化层，层与层之间均通过<em>sliding filter</em>进行局部相连，所以每一个神经元都无法对原始图像的所有信息进行感知。而感受野越大，表示该神经元所能接触到的原始图像范围越大，也就意味着更可能蕴含全局、语义层的深层特征；感受野越小则表示其所包含的特征更趋向于局部、浅层的细节特征。</p>
@@ -309,8 +308,7 @@
 <p>输入层每个单元的感受野是1，层次越深，感受野越大，而对于深度CNN，我们无法直接追踪到感受野信息。</p>
 <p>对于一个CNN特征来说，感受野中的每个像素值并不是同等重要。一个像素点越接近感受野中心，它对输出特征的计算所起作用越大，这意味着某一个特征不仅仅是受限在输入图片某个特定的区域，而且呈指数级聚焦在区域的中心。</p>
 <hr>
-<p>#感受野中心位置及大小计算</p>
-<p>具体公式推导及代码参考：<a href="https://medium.com/mlreview/a-guide-to-receptive-field-arithmetic-for-convolutional-neural-networks-e0f514068807" target="_blank" rel="noopener">A guide to receptive field arithmetic for Convolutional Neural Networks</a></p>
+<h2 id="感受野中心位置及大小计算"><a href="#感受野中心位置及大小计算" class="headerlink" title="感受野中心位置及大小计算"></a>感受野中心位置及大小计算</h2><p>具体公式推导及代码参考：<a href="https://medium.com/mlreview/a-guide-to-receptive-field-arithmetic-for-convolutional-neural-networks-e0f514068807" target="_blank" rel="noopener">A guide to receptive field arithmetic for Convolutional Neural Networks</a></p>
 
       
     </div>
@@ -457,7 +455,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#感受野（Receptive-Field"><span class="nav-number">1.</span> <span class="nav-text">感受野（Receptive Field)</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#感受野（Receptive-Field"><span class="nav-number">1.</span> <span class="nav-text">感受野（Receptive Field)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#感受野中心位置及大小计算"><span class="nav-number">1.1.</span> <span class="nav-text">感受野中心位置及大小计算</span></a></li></ol></li></ol></div>
             
 
           </div>

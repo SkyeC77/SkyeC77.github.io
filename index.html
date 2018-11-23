@@ -248,7 +248,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/23/ReceptiveField/" itemprop="url">Untitled</a></h1>
+                <a class="post-title-link" href="/2018/11/23/ReceptiveField/" itemprop="url">Receptive Field</a></h1>
         
 
         <div class="post-meta">
@@ -300,8 +300,7 @@
       
         
           
-            <hr>
-<h2 id="感受野（Receptive-Field"><a href="#感受野（Receptive-Field" class="headerlink" title="感受野（Receptive Field)"></a>感受野（<em>Receptive Field</em>)</h2><p>之前一直不是很理解感受野是什么，因此认真地看了下相关知识，在这里记录一下~</p>
+            <h1 id="感受野（Receptive-Field"><a href="#感受野（Receptive-Field" class="headerlink" title="感受野（Receptive Field)"></a>感受野（<em>Receptive Field</em>)</h1><p>之前一直不是很理解感受野是什么，因此认真地看了下相关知识，在这里记录一下~</p>
 <hr>
 <p>感受野，指的是一个特定的CNN特征在输入空间所受影响的区域，可以用<strong>中心位置</strong>(<em>center location</em>)和<strong>大小</strong>(<em>size</em>)来表征。</p>
 <p>由于网络结构中普遍使用卷积层和池化层，层与层之间均通过<em>sliding filter</em>进行局部相连，所以每一个神经元都无法对原始图像的所有信息进行感知。而感受野越大，表示该神经元所能接触到的原始图像范围越大，也就意味着更可能蕴含全局、语义层的深层特征；感受野越小则表示其所包含的特征更趋向于局部、浅层的细节特征。</p>
@@ -310,8 +309,7 @@
 <p>输入层每个单元的感受野是1，层次越深，感受野越大，而对于深度CNN，我们无法直接追踪到感受野信息。</p>
 <p>对于一个CNN特征来说，感受野中的每个像素值并不是同等重要。一个像素点越接近感受野中心，它对输出特征的计算所起作用越大，这意味着某一个特征不仅仅是受限在输入图片某个特定的区域，而且呈指数级聚焦在区域的中心。</p>
 <hr>
-<p>#感受野中心位置及大小计算</p>
-<p>具体公式推导及代码参考：<a href="https://medium.com/mlreview/a-guide-to-receptive-field-arithmetic-for-convolutional-neural-networks-e0f514068807" target="_blank" rel="noopener">A guide to receptive field arithmetic for Convolutional Neural Networks</a></p>
+<h2 id="感受野中心位置及大小计算"><a href="#感受野中心位置及大小计算" class="headerlink" title="感受野中心位置及大小计算"></a>感受野中心位置及大小计算</h2><p>具体公式推导及代码参考：<a href="https://medium.com/mlreview/a-guide-to-receptive-field-arithmetic-for-convolutional-neural-networks-e0f514068807" target="_blank" rel="noopener">A guide to receptive field arithmetic for Convolutional Neural Networks</a></p>
 
           
         
@@ -431,7 +429,7 @@
       
         
           
-            <h1 id="基于深度学习的目标检测算法"><a href="#基于深度学习的目标检测算法" class="headerlink" title="基于深度学习的目标检测算法"></a>基于深度学习的目标检测算法</h1><p>持续更新~</p>
+            <h1 id="基于深度学习的目标检测算法"><a href="#基于深度学习的目标检测算法" class="headerlink" title="基于深度学习的目标检测算法"></a>基于深度学习的目标检测算法</h1><p>未写完…</p>
 <p>最近为了做毕设，重新开始看目标检测相关的一系列论文，在这里记录一下自己的学习过程，也方便以后复习。</p>
 <hr>
 <h2 id="R-CNN-2013-11"><a href="#R-CNN-2013-11" class="headerlink" title="R-CNN / 2013.11"></a>R-CNN / 2013.11</h2><p>论文：<a href="https://arxiv.org/abs/1311.2524" target="_blank" rel="noopener">Rich feature hierarchies for accurate object detection and semantic segmentation</a></p>
@@ -449,7 +447,7 @@
 <p>卷积层的参数和输入大小无关，它仅是一个卷积核在图像上滑动，对不同大小的图片卷积得到不同大小的特征图（feature map)；但是<strong>全连接层（FC Layer）</strong>情况则不一样。由于全连接层把输入的所有像素点连接起来，需要指定输入层神经元个数和输出层神经元个数，所以必须规定输入的特征图大小，以指定参数个数。</p>
 <p><strong>SPP-Net解决方法</strong></p>
 <p> SPP-Net在最后一个卷积层后，接入了<strong>金字塔池化（spatial pyramid pooling)层</strong>，使用这种方式，可以让网络输入任意的图片，而且还会生成固定大小的输出。</p>
-<p><strong>什么是金字塔池化？</strong><br><img src="https://upload-images.jianshu.io/upload_images/14184962-6b7b39eab6305a67.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/480" alt=""><br>从图中分析，黑色图片代表Conv5之后的feature map，其大小任意。接着以不同大小的块来提取特征，分别是4<em>4，2</em>2，1<em>1，将这三张网格放到下面这张特征图上，就可以得到16+4+1=21种不同的块(Spatial bins)，我们从这21个块中，每个块提取出一个特征，这样刚好就是我们要提取的21维特征向量。这种以不同的大小格子的组合方式来池化的过程就是空间金字塔池化（SPP）。如果要进行空间金字塔最大池化，就是从这21个图片块中，分别计算每个块的最大值，从而得到一个21维特征的输出单元。共用256个滤波器，最终输出向量大小固定为**bins\</em>filters*<em>，即（16+4+1)\</em>256，作为全连接层的输入。</p>
+<p><strong>什么是金字塔池化？</strong><br><img src="https://upload-images.jianshu.io/upload_images/14184962-6b7b39eab6305a67.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/480" alt=""><br>从图中分析，黑色图片代表Conv5之后的feature map，其大小任意。接着以不同大小的块来提取特征，分别是4*4，2*2，1*1，将这三张网格放到下面这张特征图上，就可以得到16+4+1=21种不同的块(Spatial bins)，我们从这21个块中，每个块提取出一个特征，这样刚好就是我们要提取的21维特征向量。这种以不同的大小格子的组合方式来池化的过程就是空间金字塔池化（SPP）。如果要进行空间金字塔最大池化，就是从这21个图片块中，分别计算每个块的最大值，从而得到一个21维特征的输出单元。共用256个滤波器，最终输出向量大小固定为<strong>bins*filters</strong>，即（16+4+1)*256，作为全连接层的输入。</p>
 <p>总的来说，金字塔池化意义在于<strong>多尺度特征提取出固定大小的特征向量</strong>。</p>
 <hr>
 <h2 id="Fast-R-CNN-2015-4"><a href="#Fast-R-CNN-2015-4" class="headerlink" title="Fast R-CNN / 2015.4"></a>Fast R-CNN / 2015.4</h2><p>论文：<a href="http://link.zhihu.com/?target=https%3A//arxiv.org/abs/1504.08083" target="_blank" rel="noopener">Fast R-CNN</a></p>
