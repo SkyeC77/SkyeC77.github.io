@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Skye">
 <meta property="og:description" content="这些天看论文很多处用到mAP，一直只是知道这是一个评估指标，但具体怎么得来的不太清楚，现在有空学习一下~  Mean Average Precision(mAP)用于评估目标检测模型的物体分类和定位性能，由于该类问题中每一个图片都可能包含许多不同类别的物体，故图像分类问题的标准指标precision并不适用。 Ground Truth 对于目标检测问题，真实标签数据应包括图像中物体的类别以及该图像">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-24T03:52:03.807Z">
+<meta property="og:updated_time" content="2018-11-24T03:53:50.469Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="目标检测模型评估指标:mAP">
 <meta name="twitter:description" content="这些天看论文很多处用到mAP，一直只是知道这是一个评估指标，但具体怎么得来的不太清楚，现在有空学习一下~  Mean Average Precision(mAP)用于评估目标检测模型的物体分类和定位性能，由于该类问题中每一个图片都可能包含许多不同类别的物体，故图像分类问题的标准指标precision并不适用。 Ground Truth 对于目标检测问题，真实标签数据应包括图像中物体的类别以及该图像">
@@ -319,7 +319,7 @@
 <p>对于各个类别，用上述方法计算AP，求所有类别平均即得到mAP。</p>
 <p>在COCO数据集中，采用的是更严格的计算方式，计算了不同IoU阈值和物体大小下的AP(详情见<a href="http://cocodataset.org/#detection-eval" target="_blank" rel="noopener">COCO Detection Evaluation</a>)。</p>
 <hr>
-<p>内容参考：<br>博客：<a href="http://tarangshah.com/blog/2018-01-27/what-is-map-understanding-the-statistic-of-choice-for-comparing-object-detection-models/" target="_blank" rel="noopener">Measuring Object Detection models - mAP - What is Mean Average Precision?</a><br>代码：<a href="https://github.com/facebookresearch/Detectron/blob/05d04d3a024f0991339de45872d02f2f50669b3d/lib/datasets/voc_eval.py" target="_blank" rel="noopener">VOC数据集的mAP实现</a><br>     <a href="https://github.com/cocodataset/cocoapi/blob/master/PythonAPI/pycocotools/cocoeval.py" target="_blank" rel="noopener">COCO数据集mAP计算API</a><br>论文：<a href="https://arxiv.org/pdf/1607.03476.pdf" target="_blank" rel="noopener">End-to-end training of object class detectors for mean average precision</a></p>
+<p>内容参考：<br>博客：<a href="http://tarangshah.com/blog/2018-01-27/what-is-map-understanding-the-statistic-of-choice-for-comparing-object-detection-models/" target="_blank" rel="noopener">Measuring Object Detection models - mAP - What is Mean Average Precision?</a><br>代码：<a href="https://github.com/facebookresearch/Detectron/blob/05d04d3a024f0991339de45872d02f2f50669b3d/lib/datasets/voc_eval.py" target="_blank" rel="noopener">VOC数据集的mAP实现</a>、<a href="https://github.com/cocodataset/cocoapi/blob/master/PythonAPI/pycocotools/cocoeval.py" target="_blank" rel="noopener">COCO数据集mAP计算API</a><br>论文：<a href="https://arxiv.org/pdf/1607.03476.pdf" target="_blank" rel="noopener">End-to-end training of object class detectors for mean average precision</a></p>
 
       
     </div>
