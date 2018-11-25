@@ -317,7 +317,7 @@
 <p>mAP有许多不同的定义，在这里以PASCAL VOC竞赛的评估指标为例。</p>
 <p>在这里，可以注意到，至少有两个变量会影响<em>precision</em>和<em>recall</em>，即IoU和置信度阈值。在PASCAL VOC竞赛中，IoU采用0.5。但置信度在不同模型中差异较大，会导致precision-recall曲线变化。于是，他们提出计算AP的一种方法。</p>
 <p>首先对模型预测结果进行排序，按<strong>预测值置信度</strong>降序，给定一个<em>rank</em>，<em>recall</em>和<em>precision</em>仅在高于该<em>rank</em>值的预测结果中进行计算。改变<em>rank</em>会导致<em>recall</em>值的变化，共选择11个不同的<em>recall</em>值，分别为0,0.1,0.2,…,1.0，可认为选择了11个<em>rank</em>。由于按照置信度排序，实际就等价于选择了11个置信度阈值。</p>
-<p><img src="https://github.com/SkyeC77/pictures/blob/master/mAP.png" alt=""></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/14184962-68a74391a33dcc79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt=""></p>
 <p>另外，在计算<em>precision</em>时，采用了插值的方法，对于某个<em>recall</em>值r，<em>precision</em>值取所有recall&gt;=r中的<strong>最大值</strong>，以保证PR曲线是单调递减的，减少由于样本排序中小的变化引起的PR曲线的抖动。AP就定义为在这11个<em>recall</em>下的<em>precision</em>的平均值，表征整个precision-recall曲线，也就是曲线下的面积。<em>average</em>是对<em>recall</em>取平均，<em>mean</em>是对所有类别取平均（每一个类别当做一次二分类任务）。</p>
 <p>对于各个类别，用上述方法计算AP，求所有类别平均即得到mAP。<br>在COCO数据集中，采用的是更严格的计算方式，计算了不同IoU阈值和物体大小下的AP(详情见<a href="http://cocodataset.org/#detection-eval" target="_blank" rel="noopener">COCO Detection Evaluation</a>)。</p>
 <p><strong>举个例子加深自己的理解：</strong></p>
