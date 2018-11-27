@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Skye">
 <meta property="og:description" content="Object localization监督学习训练样本中给出bounding box的中心点坐标和长宽，bx,by,bw,bhNeed to output bx,by,bw,bh,class label and Pc(is there any object?存在物体的置信度。当不存在物体的时候，loss函数只需计算Pc的准确度，其他项都不用考虑)。Y的维数为（1+4+class labels)。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-27T16:20:08.159Z">
+<meta property="og:updated_time" content="2018-11-27T16:21:22.801Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="some notes for deep learning">
 <meta name="twitter:description" content="Object localization监督学习训练样本中给出bounding box的中心点坐标和长宽，bx,by,bw,bhNeed to output bx,by,bw,bh,class label and Pc(is there any object?存在物体的置信度。当不存在物体的时候，loss函数只需计算Pc的准确度，其他项都不用考虑)。Y的维数为（1+4+class labels)。">
@@ -310,10 +310,13 @@
 <p><strong>bounding box prediction</strong></p>
 <p>YOLO algorithm</p>
 <p>一个格子只存在一个物体时<br>用一个网格划分输入图片（3<em>3）<br>Labels for training for each grid cell:置信度Pc，bx,by,bw,bh, class labels<br>将物体分配给中心所在的格子(训练集中该格子的Pc=1)<br>output dimension:(1+4+class labels)\</em>3*3,<br>bx,by,bw,bh are specified relative to the grid cell(bbox中心所在cell的左上角坐标为0，右下角为1，bx,by是相对（0,0)的偏移量，值在0到1之间；bw,bh是bbox的长宽与grid cell边长的比值，可大于1。可以用sigmoid等函数处理，使其位于0到1之间）</p>
-<p><strong>Intersection over Union</strong><br>“Correct” if IoU&gt;=0.5(human chosen)<br>the predicted bbox with the ground truth(prior bbox)</p>
-<p><strong>Non-max Suppresion</strong><br>确保每个物体只被检测出一次<br>先去掉所有Pc小于一定阈值的边界框(认为没有检测到物体），找出检测结果中Pc最大的bbox,然后去掉与其IoU大于阈值的检测框；再选择剩下的bbox中概率最高的…直到处理完所有框。<br>如果图像中有多中类别的物体，应该分别对每种label各<strong>独立</strong>做一次NMS。</p>
+<p><strong>Intersection over Union</strong></p>
+<p>“Correct” if IoU&gt;=0.5(human chosen)<br>the predicted bbox with the ground truth(prior bbox)</p>
+<p><strong>Non-max Suppresion</strong></p>
+<p>确保每个物体只被检测出一次<br>先去掉所有Pc小于一定阈值的边界框(认为没有检测到物体），找出检测结果中Pc最大的bbox,然后去掉与其IoU大于阈值的检测框；再选择剩下的bbox中概率最高的…直到处理完所有框。<br>如果图像中有多中类别的物体，应该分别对每种label各<strong>独立</strong>做一次NMS。</p>
 <hr>
-<p><strong>Anchor box</strong><br>使一个grid cell可以检测出多个物体</p>
+<p><strong>Anchor box</strong></p>
+<p>使一个grid cell可以检测出多个物体</p>
 <p><strong>Previously</strong>:<br>each object in training image is assigned to grid cell that contains that object’s midpoint.</p>
 <p><strong>With anchor boxes</strong>:<br>each object in training image is assigned to grid cell that contains object’s midpoint and anchor box for the grid cell with highest IoU. match with <strong>(grid cell, anchor box)</strong>.</p>
 <p>for each grid cell, the output Y dimension is (1+4+class labels)*anchor boxes.</p>
