@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="之前一直不是很理解感受野是什么，因此认真地看了下相关知识，在这里记录一下~  感受野，指的是一个特定的CNN特征在输入空间所受影响的区域，可以用中心位置(center location)和大小(size)来表征；用来表示网络内部不同神经元对原图像的感受范围大小，也就是CNN每一层输出的特征图（feature map）上的像素点在原始图像上映射的区域大小。 由于网络结构中普遍使用卷积层和池化层，层与">
+<meta name="description" content="Object localization监督学习训练样本中给出bounding box的中心点坐标和长宽，bx,by,bw,bhNeed to output bx,by,bw,bh,class label and Pc(is there any object?存在物体的置信度。当不存在物体的时候，loss函数只需计算Pc的准确度，其他项都不用考虑)。Y的维数为（1+4+class labels)。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="感受野（Receptive Field）">
-<meta property="og:url" content="http://yoursite.com/2018/11/23/ReceptiveField/index.html">
+<meta property="og:title" content="some notes for deep learning">
+<meta property="og:url" content="http://yoursite.com/2018/11/27/dl/index.html">
 <meta property="og:site_name" content="Skye">
-<meta property="og:description" content="之前一直不是很理解感受野是什么，因此认真地看了下相关知识，在这里记录一下~  感受野，指的是一个特定的CNN特征在输入空间所受影响的区域，可以用中心位置(center location)和大小(size)来表征；用来表示网络内部不同神经元对原图像的感受范围大小，也就是CNN每一层输出的特征图（feature map）上的像素点在原始图像上映射的区域大小。 由于网络结构中普遍使用卷积层和池化层，层与">
+<meta property="og:description" content="Object localization监督学习训练样本中给出bounding box的中心点坐标和长宽，bx,by,bw,bhNeed to output bx,by,bw,bh,class label and Pc(is there any object?存在物体的置信度。当不存在物体的时候，loss函数只需计算Pc的准确度，其他项都不用考虑)。Y的维数为（1+4+class labels)。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-23T12:12:43.766Z">
+<meta property="og:updated_time" content="2018-11-27T16:20:08.159Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="感受野（Receptive Field）">
-<meta name="twitter:description" content="之前一直不是很理解感受野是什么，因此认真地看了下相关知识，在这里记录一下~  感受野，指的是一个特定的CNN特征在输入空间所受影响的区域，可以用中心位置(center location)和大小(size)来表征；用来表示网络内部不同神经元对原图像的感受范围大小，也就是CNN每一层输出的特征图（feature map）上的像素点在原始图像上映射的区域大小。 由于网络结构中普遍使用卷积层和池化层，层与">
+<meta name="twitter:title" content="some notes for deep learning">
+<meta name="twitter:description" content="Object localization监督学习训练样本中给出bounding box的中心点坐标和长宽，bx,by,bw,bhNeed to output bx,by,bw,bh,class label and Pc(is there any object?存在物体的置信度。当不存在物体的时候，loss函数只需计算Pc的准确度，其他项都不用考虑)。Y的维数为（1+4+class labels)。">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/23/ReceptiveField/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/27/dl/">
 
 
 
 
 
-  <title>感受野（Receptive Field） | Skye</title>
+  <title>some notes for deep learning | Skye</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/23/ReceptiveField/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/27/dl/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Skye Chen">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">感受野（Receptive Field）</h1>
+          <h1 class="post-title" itemprop="name headline">some notes for deep learning</h1>
         
 
         <div class="post-meta">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-23T18:59:52+08:00">
-                2018-11-23
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-27T23:41:55+08:00">
+                2018-11-27
               </time>
             
 
@@ -299,16 +299,31 @@
       
 
       
-        <p>之前一直不是很理解感受野是什么，因此认真地看了下相关知识，在这里记录一下~</p>
+        <h2 id="Object-localization"><a href="#Object-localization" class="headerlink" title="Object localization"></a>Object localization</h2><p>监督学习<br>训练样本中给出bounding box的中心点坐标和长宽，bx,by,bw,bh<br>Need to output bx,by,bw,bh,class label and Pc(is there any object?存在物体的置信度。当不存在物体的时候，loss函数只需计算Pc的准确度，其他项都不用考虑)。Y的维数为（1+4+class labels)。</p>
+<h2 id="Landmark-detection"><a href="#Landmark-detection" class="headerlink" title="Landmark detection"></a>Landmark detection</h2><p>特征点检测</p>
+<p>需要输出一个是否有物体的置信度Pc,以及每个特征点的（x,y）坐标，所有训练集样本需包含这些labels。</p>
+<p>面部表情识别，人体关键点检测。</p>
+<h2 id="Object-detection"><a href="#Object-detection" class="headerlink" title="Object detection"></a>Object detection</h2><p><strong>sliding windows</strong></p>
+<p>训练：根据滑动窗口的大小，使用适当裁剪的训练集样本，训练是否图片中有需要检测的物体物体。<br>检测：滑动窗口目标检测，对每一个窗口做一次检测，得到一个label,直到遍历图像每个区域。<br>缺点：computation expensive。步幅大时，粗粒度会影响检测性能，无法准确定位；细粒度或小步幅时计算成本高。所以一般使用简单的线性分类器。</p>
+<p><strong>convolutional implementation of sliding windows</strong></p>
+<p>Turning FC layer into convolutional layers<br>没有全连接层时，输入图片的大小可以改变。<br>该卷积操作的原理是：不需要将需检测的输入图片分割成滑窗的大小的子集，分贝执行前向传播；而是直接将图片输入给卷积网络，其中的公共区域可以共享很多计算，一次性输出所有检测值。但边界框位置可能不够准确。</p>
+<p><strong>bounding box prediction</strong></p>
+<p>YOLO algorithm</p>
+<p>一个格子只存在一个物体时<br>用一个网格划分输入图片（3<em>3）<br>Labels for training for each grid cell:置信度Pc，bx,by,bw,bh, class labels<br>将物体分配给中心所在的格子(训练集中该格子的Pc=1)<br>output dimension:(1+4+class labels)\</em>3*3,<br>bx,by,bw,bh are specified relative to the grid cell(bbox中心所在cell的左上角坐标为0，右下角为1，bx,by是相对（0,0)的偏移量，值在0到1之间；bw,bh是bbox的长宽与grid cell边长的比值，可大于1。可以用sigmoid等函数处理，使其位于0到1之间）</p>
+<p><strong>Intersection over Union</strong><br>“Correct” if IoU&gt;=0.5(human chosen)<br>the predicted bbox with the ground truth(prior bbox)</p>
+<p><strong>Non-max Suppresion</strong><br>确保每个物体只被检测出一次<br>先去掉所有Pc小于一定阈值的边界框(认为没有检测到物体），找出检测结果中Pc最大的bbox,然后去掉与其IoU大于阈值的检测框；再选择剩下的bbox中概率最高的…直到处理完所有框。<br>如果图像中有多中类别的物体，应该分别对每种label各<strong>独立</strong>做一次NMS。</p>
 <hr>
-<p>感受野，指的是一个特定的CNN特征在输入空间所受影响的区域，可以用<strong>中心位置</strong>(<em>center location</em>)和<strong>大小</strong>(<em>size</em>)来表征；用来表示网络内部不同神经元对原图像的感受范围大小，也就是CNN每一层输出的特征图（<em>feature map</em>）上的像素点在原始图像上映射的区域大小。</p>
-<p>由于网络结构中普遍使用卷积层和池化层，层与层之间均通过<em>sliding filter</em>进行局部相连，所以每一个神经元都无法对原始图像的所有信息进行感知。而感受野越大，表示该神经元所能接触到的原始图像范围越大，也就意味着更可能蕴含全局、语义层的深层特征；感受野越小则表示其所包含的特征更趋向于局部、浅层的细节特征。</p>
-<p><strong>感受野的大小可以用来判断网络每一层的抽象层次。</strong></p>
+<p><strong>Anchor box</strong><br>使一个grid cell可以检测出多个物体</p>
+<p><strong>Previously</strong>:<br>each object in training image is assigned to grid cell that contains that object’s midpoint.</p>
+<p><strong>With anchor boxes</strong>:<br>each object in training image is assigned to grid cell that contains object’s midpoint and anchor box for the grid cell with highest IoU. match with <strong>(grid cell, anchor box)</strong>.</p>
+<p>for each grid cell, the output Y dimension is (1+4+class labels)*anchor boxes.</p>
+<p>use k-means algorithm to choose anchor box.</p>
+<p>grid cells越多，一个cell中出现多个物体的可能性更小。</p>
 <hr>
-<p>输入层每个单元的感受野是1，层次越深，感受野越大，是由<em>kernel size</em>和<em>stride size</em>共同决定的。而对于深度CNN，我们无法直接追踪到感受野信息。</p>
-<h2 id="感受野中心位置及大小计算"><a href="#感受野中心位置及大小计算" class="headerlink" title="感受野中心位置及大小计算"></a>感受野中心位置及大小计算</h2><p>具体公式推导及代码参考：<a href="https://medium.com/mlreview/a-guide-to-receptive-field-arithmetic-for-convolutional-neural-networks-e0f514068807" target="_blank" rel="noopener">A guide to receptive field arithmetic for Convolutional Neural Networks</a></p>
-<hr>
-<p>对于一个CNN特征来说，感受野中的每个像素值并不是同等重要。一个像素点越接近感受野中心，它对输出特征的计算所起作用越大，这意味着某一个特征不仅仅是受限在输入图片某个特定的区域，而且呈指数级聚焦在区域的中心。</p>
+<h2 id="Region-proposal-network-RPN"><a href="#Region-proposal-network-RPN" class="headerlink" title="Region proposal network(RPN)"></a>Region proposal network(RPN)</h2><p>two stages<br>利用图像分割算法，选出候选区域，在每种色块(blobs)上跑分类器。先找出可能的2000个色块，然后在这些色块上放置bbox，在这些色块上跑分类器。</p>
+<p>R-CNN: Propose regions. Classify proposed regions one at a time. Output label + bounding box.</p>
+<p>Fast R-CNN: Propose regions. Useconvolution implementation of sliding windows to classify all the proposed regions.</p>
+<p>Faster R-CNN: Use convolutional network to propose regions.</p>
 
       
     </div>
@@ -333,8 +348,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/20/object_dection/" rel="next" title="目标检测学习之路">
-                <i class="fa fa-chevron-left"></i> 目标检测学习之路
+              <a href="/2018/11/24/mAP/" rel="next" title="目标检测模型评估指标:mAP">
+                <i class="fa fa-chevron-left"></i> 目标检测模型评估指标:mAP
               </a>
             
           </div>
@@ -342,10 +357,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/24/mAP/" rel="prev" title="目标检测模型评估指标:mAP">
-                目标检测模型评估指标:mAP <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -459,7 +470,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#感受野中心位置及大小计算"><span class="nav-number">1.</span> <span class="nav-text">感受野中心位置及大小计算</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Object-localization"><span class="nav-number">1.</span> <span class="nav-text">Object localization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Landmark-detection"><span class="nav-number">2.</span> <span class="nav-text">Landmark detection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Object-detection"><span class="nav-number">3.</span> <span class="nav-text">Object detection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Region-proposal-network-RPN"><span class="nav-number">4.</span> <span class="nav-text">Region proposal network(RPN)</span></a></li></ol></div>
             
 
           </div>
