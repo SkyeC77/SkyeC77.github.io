@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Object localization监督学习训练样本中给出bounding box的中心点坐标和长宽，bx,by,bw,bhNeed to output bx,by,bw,bh,class label and Pc(is there any object?存在物体的置信度。当不存在物体的时候，loss函数只需计算Pc的准确度，其他项都不用考虑)。Y的维数为（1+4+class labels)。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Some notes for deep learning">
+<meta property="og:url" content="http://yoursite.com/2018/11/27/notes_for_dl/index.html">
+<meta property="og:site_name" content="Skye">
+<meta property="og:description" content="Object localization监督学习训练样本中给出bounding box的中心点坐标和长宽，bx,by,bw,bhNeed to output bx,by,bw,bh,class label and Pc(is there any object?存在物体的置信度。当不存在物体的时候，loss函数只需计算Pc的准确度，其他项都不用考虑)。Y的维数为（1+4+class labels)。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-11-28T03:52:08.648Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Some notes for deep learning">
+<meta name="twitter:description" content="Object localization监督学习训练样本中给出bounding box的中心点坐标和长宽，bx,by,bw,bhNeed to output bx,by,bw,bh,class label and Pc(is there any object?存在物体的置信度。当不存在物体的时候，loss函数只需计算Pc的准确度，其他项都不用考虑)。Y的维数为（1+4+class labels)。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/27/notes_for_dl/">
+
+
+
+
+
+  <title>Some notes for deep learning | Skye</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Skye</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/27/notes_for_dl/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Skye Chen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Skye">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Some notes for deep learning</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-27T23:41:55+08:00">
+                2018-11-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Object-localization"><a href="#Object-localization" class="headerlink" title="Object localization"></a>Object localization</h2><p>监督学习<br>训练样本中给出bounding box的中心点坐标和长宽，bx,by,bw,bh<br>Need to output bx,by,bw,bh,class label and Pc(is there any object?存在物体的置信度。当不存在物体的时候，loss函数只需计算Pc的准确度，其他项都不用考虑)。Y的维数为（1+4+class labels)。</p>
+<hr>
+<h2 id="Landmark-detection"><a href="#Landmark-detection" class="headerlink" title="Landmark detection"></a>Landmark detection</h2><p>特征点检测</p>
+<p>需要输出一个是否有物体的置信度Pc,以及每个特征点的（x,y）坐标，所有训练集样本需包含这些labels。</p>
+<p>面部表情识别，人体关键点检测。</p>
+<hr>
+<h2 id="Object-detection"><a href="#Object-detection" class="headerlink" title="Object detection"></a>Object detection</h2><h3 id="sliding-windows"><a href="#sliding-windows" class="headerlink" title="sliding windows"></a>sliding windows</h3><p>训练：根据滑动窗口的大小，使用适当裁剪的训练集样本，训练是否图片中有需要检测的物体物体。<br>检测：滑动窗口目标检测，对每一个窗口做一次检测，得到一个label,直到遍历图像每个区域。<br>缺点：computation expensive。步幅大时，粗粒度会影响检测性能，无法准确定位；细粒度或小步幅时计算成本高。所以一般使用简单的线性分类器。</p>
+<h3 id="convolutional-implementation-of-sliding-windows"><a href="#convolutional-implementation-of-sliding-windows" class="headerlink" title="convolutional implementation of sliding windows"></a>convolutional implementation of sliding windows</h3><p>Turning FC layer into convolutional layers<br>没有全连接层时，输入图片的大小可以改变。<br>该卷积操作的原理是：不需要将需检测的输入图片分割成滑窗的大小的子集，分贝执行前向传播；而是直接将图片输入给卷积网络，其中的公共区域可以共享很多计算，一次性输出所有检测值。但边界框位置可能不够准确。</p>
+<h3 id="bounding-box-prediction"><a href="#bounding-box-prediction" class="headerlink" title="bounding box prediction"></a>bounding box prediction</h3><p>YOLO algorithm</p>
+<p>一个格子只存在一个物体时<br>用一个网格划分输入图片（3<em>3）<br>Labels for training for each grid cell:置信度Pc，bx,by,bw,bh, class labels<br>将物体分配给中心所在的格子(训练集中该格子的Pc=1)<br>output dimension:(1+4+class labels)\</em>3*3,<br>bx,by,bw,bh are specified relative to the grid cell(bbox中心所在cell的左上角坐标为0，右下角为1，bx,by是相对（0,0)的偏移量，值在0到1之间；bw,bh是bbox的长宽与grid cell边长的比值，可大于1。可以用sigmoid等函数处理，使其位于0到1之间）</p>
+<h3 id="Intersection-over-Union"><a href="#Intersection-over-Union" class="headerlink" title="Intersection over Union"></a>Intersection over Union</h3><p>“Correct” if IoU&gt;=0.5(human chosen)<br>the predicted bbox with the ground truth(prior bbox)</p>
+<h3 id="Non-max-Suppresion"><a href="#Non-max-Suppresion" class="headerlink" title="Non-max Suppresion"></a>Non-max Suppresion</h3><p>确保每个物体只被检测出一次。<br>先去掉所有Pc小于一定阈值的边界框(认为没有检测到物体），找出检测结果中Pc最大的bbox,然后去掉与其IoU大于阈值的检测框；再选择剩下的bbox中概率最高的…直到处理完所有框。<br>如果图像中有多中类别的物体，应该分别对每种label各<strong>独立</strong>做一次NMS。</p>
+<hr>
+<h3 id="Anchor-box"><a href="#Anchor-box" class="headerlink" title="Anchor box"></a>Anchor box</h3><p>使一个grid cell可以检测出多个物体。</p>
+<p><strong>Previously</strong>:<br>each object in training image is assigned to grid cell that contains that object’s midpoint.</p>
+<p><strong>With anchor boxes</strong>:<br>each object in training image is assigned to grid cell that contains object’s midpoint and anchor box for the grid cell with highest IoU. match with <strong>(grid cell, anchor box)</strong>.</p>
+<p>for each grid cell, the output Y dimension is (1+4+class labels)*anchor boxes.</p>
+<p>use k-means algorithm to choose anchor box.</p>
+<p>grid cells越多，一个cell中出现多个物体的可能性更小。</p>
+<hr>
+<h2 id="Region-proposal-network-RPN"><a href="#Region-proposal-network-RPN" class="headerlink" title="Region proposal network(RPN)"></a>Region proposal network(RPN)</h2><p>two stages<br>利用图像分割算法，选出候选区域，在每种色块(blobs)上跑分类器。先找出可能的2000个色块，然后在这些色块上放置bbox，在这些色块上跑分类器。</p>
+<p>R-CNN: Propose regions. Classify proposed regions one at a time. Output label + bounding box.</p>
+<p>Fast R-CNN: Propose regions. Useconvolution implementation of sliding windows to classify all the proposed regions.</p>
+<p>Faster R-CNN: Use convolutional network to propose regions.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/24/mAP/" rel="next" title="目标检测模型评估指标:mAP">
+                <i class="fa fa-chevron-left"></i> 目标检测模型评估指标:mAP
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Skye Chen</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Object-localization"><span class="nav-number">1.</span> <span class="nav-text">Object localization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Landmark-detection"><span class="nav-number">2.</span> <span class="nav-text">Landmark detection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Object-detection"><span class="nav-number">3.</span> <span class="nav-text">Object detection</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sliding-windows"><span class="nav-number">3.1.</span> <span class="nav-text">sliding windows</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#convolutional-implementation-of-sliding-windows"><span class="nav-number">3.2.</span> <span class="nav-text">convolutional implementation of sliding windows</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bounding-box-prediction"><span class="nav-number">3.3.</span> <span class="nav-text">bounding box prediction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Intersection-over-Union"><span class="nav-number">3.4.</span> <span class="nav-text">Intersection over Union</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Non-max-Suppresion"><span class="nav-number">3.5.</span> <span class="nav-text">Non-max Suppresion</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Anchor-box"><span class="nav-number">3.6.</span> <span class="nav-text">Anchor box</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Region-proposal-network-RPN"><span class="nav-number">4.</span> <span class="nav-text">Region proposal network(RPN)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Skye Chen</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
