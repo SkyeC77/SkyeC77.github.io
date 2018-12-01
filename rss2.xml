@@ -8,8 +8,28 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Thu, 29 Nov 2018 03:39:04 GMT</pubDate>
+    <pubDate>Sat, 01 Dec 2018 06:50:03 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>a virtualenv on linux</title>
+      <link>http://yoursite.com/2018/12/01/virtualenv/</link>
+      <guid>http://yoursite.com/2018/12/01/virtualenv/</guid>
+      <pubDate>Sat, 01 Dec 2018 06:43:22 GMT</pubDate>
+      <description>
+      
+        
+        
+          &lt;p&gt;前些天在实验室的服务器上部署环境跑网络。然后，自己总是忘记怎么进入自己搭建的虚拟环境，不得已在这里记录一下…&lt;/p&gt;
+&lt;p&gt;在自己的笔记本上安装了Anaconda，建一个虚拟环境，进入的话只要在命令行输入&lt;code&gt;acitvate [虚拟环境名称]&lt;/code&gt;就可以了。
+        
+      
+      </description>
+      
+      <content:encoded><![CDATA[<p>前些天在实验室的服务器上部署环境跑网络。然后，自己总是忘记怎么进入自己搭建的虚拟环境，不得已在这里记录一下…</p><p>在自己的笔记本上安装了Anaconda，建一个虚拟环境，进入的话只要在命令行输入<code>acitvate [虚拟环境名称]</code>就可以了。不过服务器上没有conda，只安装了python-virtualenv，不过效果也差不多。</p><p>例如：</p><p><strong>创建名为’py3’的虚拟环境</strong></p><p><code>virtualenv py3</code></p><p>默认情况下，虚拟环境会依赖系统环境中的site packages，如果不需要系统环境中的这些第三方包，则需要在上述命令后加上参数 <code>--no-site-packages</code> 来创建虚拟环境。</p><p><strong>启动虚拟环境</strong></p><p><code>cd py3</code><br><code>source ./bin/activate</code></p><p><strong>退出虚拟环境</strong></p><p><code>deactivate</code></p><p>启动虚拟环境后，所有通过pip安装的模块都会被安装在该环境中，不会对系统环境产生影响。要删除该虚拟环境，只需要将相应文件夹删除即可。</p>]]></content:encoded>
+      
+      <comments>http://yoursite.com/2018/12/01/virtualenv/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>Caffe &quot;in-place&quot; operation</title>

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[a virtualenv on linux]]></title>
+    <url>%2F2018%2F12%2F01%2Fvirtualenv%2F</url>
+    <content type="text"><![CDATA[前些天在实验室的服务器上部署环境跑网络。然后，自己总是忘记怎么进入自己搭建的虚拟环境，不得已在这里记录一下… 在自己的笔记本上安装了Anaconda，建一个虚拟环境，进入的话只要在命令行输入acitvate [虚拟环境名称]就可以了。不过服务器上没有conda，只安装了python-virtualenv，不过效果也差不多。 例如： 创建名为’py3’的虚拟环境 virtualenv py3 默认情况下，虚拟环境会依赖系统环境中的site packages，如果不需要系统环境中的这些第三方包，则需要在上述命令后加上参数 --no-site-packages 来创建虚拟环境。 启动虚拟环境 cd py3source ./bin/activate 退出虚拟环境 deactivate 启动虚拟环境后，所有通过pip安装的模块都会被安装在该环境中，不会对系统环境产生影响。要删除该虚拟环境，只需要将相应文件夹删除即可。]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[Caffe "in-place" operation]]></title>
     <url>%2F2018%2F11%2F29%2Fcaffe_inplace%2F</url>
     <content type="text"><![CDATA[在学习Caffe model中关于Layers内容时，发现一个问题，ReLU层的top blob和bottom blob相同，如下：123456layer &#123; name: &quot;conv2/relu_3x3_reduce&quot; type: &quot;ReLU&quot; bottom: &quot;conv2/3x3_reduce&quot; top: &quot;conv2/3x3_reduce&quot;&#125; 后来查资料发现这是caffe的in-place操作，是为了节省内（显）存，以及省去反复申请和释放内存的时间。 bottom blob和top blob名称相同，说明是同一个blob，占用的是内存的同一块空间。在这里也就是说，该ReLU操作是对输入blob本身进行操作，再将其输出。 如果定义的两个layer的top blob名称是一样的，那么这两个layer的bottom blob也一定是该top blob，并且按layer的定义顺序对该bottom blob进行操作。如果layer不是对bottom blob本身进行操作，那么top blob就不能与bottom blob相同，也不允许多个layer的top blob同名。因为假如这样做，后运算的layer会将top blob覆盖成其运算的结果，前面的layer的运算结果就消失了。 convolution、pooling层由于输入输出的size一般不一致，所以不能支持in-place操作；而ReLU函数是逐个对元素进行计算，不该变size，所以支持。AlexNet、VGGnet等都是在ReLU层使用in-place计算，ResNet中，BatchNorm和Scale也都使用了in-place计算。 目前已知支持in-place的有：ReLU层、Dropout层、BatchNorm层、Scale层。(除此之外，其他大部分layer貌似在定义时name和top是相同的。)]]></content>
