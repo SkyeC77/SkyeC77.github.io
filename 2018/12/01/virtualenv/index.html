@@ -127,17 +127,17 @@
 
 
 
-  <meta name="description" content="前些天在实验室的服务器上部署环境跑网络。然后，自己总是忘记怎么进入自己搭建的虚拟环境，不得已在这里记录一下… 在自己的笔记本上安装了Anaconda，建一个虚拟环境，进入的话只要在命令行输入acitvate [虚拟环境名称]就可以了。不过服务器上没有conda，只安装了python-virtualenv，不过效果也差不多。 例如： 创建名为’py3’的虚拟环境 virtualenv py3 默认情">
+  <meta name="description" content="前些天在实验室的服务器上部署环境跑网络。然后，自己总是忘记怎么进入自己搭建的虚拟环境，不得已在这里记录一下… 在自己的笔记本上安装了Anaconda，不过服务器上没有conda，只安装了python-virtualenv，不过效果也差不多。 例如： 创建名为’py3’的虚拟环境 virtualenv py3 默认情况下，虚拟环境会依赖系统环境中的site packages，如果不需要系统环境中的这">
 <meta property="og:type" content="article">
 <meta property="og:title" content="a virtualenv on linux">
 <meta property="og:url" content="http://yoursite.com/2018/12/01/virtualenv/index.html">
 <meta property="og:site_name" content="Skye">
-<meta property="og:description" content="前些天在实验室的服务器上部署环境跑网络。然后，自己总是忘记怎么进入自己搭建的虚拟环境，不得已在这里记录一下… 在自己的笔记本上安装了Anaconda，建一个虚拟环境，进入的话只要在命令行输入acitvate [虚拟环境名称]就可以了。不过服务器上没有conda，只安装了python-virtualenv，不过效果也差不多。 例如： 创建名为’py3’的虚拟环境 virtualenv py3 默认情">
+<meta property="og:description" content="前些天在实验室的服务器上部署环境跑网络。然后，自己总是忘记怎么进入自己搭建的虚拟环境，不得已在这里记录一下… 在自己的笔记本上安装了Anaconda，不过服务器上没有conda，只安装了python-virtualenv，不过效果也差不多。 例如： 创建名为’py3’的虚拟环境 virtualenv py3 默认情况下，虚拟环境会依赖系统环境中的site packages，如果不需要系统环境中的这">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-01T06:50:03.043Z">
+<meta property="og:updated_time" content="2018-12-01T08:46:05.703Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="a virtualenv on linux">
-<meta name="twitter:description" content="前些天在实验室的服务器上部署环境跑网络。然后，自己总是忘记怎么进入自己搭建的虚拟环境，不得已在这里记录一下… 在自己的笔记本上安装了Anaconda，建一个虚拟环境，进入的话只要在命令行输入acitvate [虚拟环境名称]就可以了。不过服务器上没有conda，只安装了python-virtualenv，不过效果也差不多。 例如： 创建名为’py3’的虚拟环境 virtualenv py3 默认情">
+<meta name="twitter:description" content="前些天在实验室的服务器上部署环境跑网络。然后，自己总是忘记怎么进入自己搭建的虚拟环境，不得已在这里记录一下… 在自己的笔记本上安装了Anaconda，不过服务器上没有conda，只安装了python-virtualenv，不过效果也差不多。 例如： 创建名为’py3’的虚拟环境 virtualenv py3 默认情况下，虚拟环境会依赖系统环境中的site packages，如果不需要系统环境中的这">
 
 
 
@@ -426,7 +426,7 @@
                 
               
 
-              <time title="Created: 2018-12-01 14:43:22 / Modified: 14:50:03" itemprop="dateCreated datePublished" datetime="2018-12-01T14:43:22+08:00">2018-12-01</time>
+              <time title="Created: 2018-12-01 14:43:22 / Modified: 16:46:05" itemprop="dateCreated datePublished" datetime="2018-12-01T14:43:22+08:00">2018-12-01</time>
             
 
             
@@ -465,7 +465,7 @@
 
       
         <p>前些天在实验室的服务器上部署环境跑网络。然后，自己总是忘记怎么进入自己搭建的虚拟环境，不得已在这里记录一下…</p>
-<p>在自己的笔记本上安装了Anaconda，建一个虚拟环境，进入的话只要在命令行输入<code>acitvate [虚拟环境名称]</code>就可以了。不过服务器上没有conda，只安装了python-virtualenv，不过效果也差不多。</p>
+<p>在自己的笔记本上安装了Anaconda，不过服务器上没有conda，只安装了python-virtualenv，不过效果也差不多。</p>
 <p>例如：</p>
 <p><strong>创建名为’py3’的虚拟环境</strong></p>
 <p><code>virtualenv py3</code></p>
@@ -475,6 +475,21 @@
 <p><strong>退出虚拟环境</strong></p>
 <p><code>deactivate</code></p>
 <p>启动虚拟环境后，所有通过pip安装的模块都会被安装在该环境中，不会对系统环境产生影响。要删除该虚拟环境，只需要将相应文件夹删除即可。</p>
+<hr>
+<p>那么在安装了Anaconda时，创建独立的环境命令如下（其中tf为自己取的虚拟环境名称）：</p>
+<p><code>conda create -n tf</code></p>
+<p><strong>进入虚拟环境</strong></p>
+<p><code>source activate tf</code></p>
+<p><strong>安装需要的模块</strong></p>
+<p><code>conda install tensorflow-gpu</code></p>
+<p><strong>列出环境中所有已装的模块</strong></p>
+<p><code>conda list</code></p>
+<p><strong>退出虚拟环境</strong></p>
+<p><code>source deactivate</code></p>
+<p><strong>列出所有的环境(包括base)</strong></p>
+<p><code>conda env list</code></p>
+<p><strong>删除某个虚拟环境</strong></p>
+<p><code>conda remove -n tf -all</code></p>
 
       
     </div>

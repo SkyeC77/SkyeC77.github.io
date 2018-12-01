@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[a virtualenv on linux]]></title>
     <url>%2F2018%2F12%2F01%2Fvirtualenv%2F</url>
-    <content type="text"><![CDATA[前些天在实验室的服务器上部署环境跑网络。然后，自己总是忘记怎么进入自己搭建的虚拟环境，不得已在这里记录一下… 在自己的笔记本上安装了Anaconda，建一个虚拟环境，进入的话只要在命令行输入acitvate [虚拟环境名称]就可以了。不过服务器上没有conda，只安装了python-virtualenv，不过效果也差不多。 例如： 创建名为’py3’的虚拟环境 virtualenv py3 默认情况下，虚拟环境会依赖系统环境中的site packages，如果不需要系统环境中的这些第三方包，则需要在上述命令后加上参数 --no-site-packages 来创建虚拟环境。 启动虚拟环境 cd py3source ./bin/activate 退出虚拟环境 deactivate 启动虚拟环境后，所有通过pip安装的模块都会被安装在该环境中，不会对系统环境产生影响。要删除该虚拟环境，只需要将相应文件夹删除即可。]]></content>
+    <content type="text"><![CDATA[前些天在实验室的服务器上部署环境跑网络。然后，自己总是忘记怎么进入自己搭建的虚拟环境，不得已在这里记录一下… 在自己的笔记本上安装了Anaconda，不过服务器上没有conda，只安装了python-virtualenv，不过效果也差不多。 例如： 创建名为’py3’的虚拟环境 virtualenv py3 默认情况下，虚拟环境会依赖系统环境中的site packages，如果不需要系统环境中的这些第三方包，则需要在上述命令后加上参数 --no-site-packages 来创建虚拟环境。 启动虚拟环境 cd py3source ./bin/activate 退出虚拟环境 deactivate 启动虚拟环境后，所有通过pip安装的模块都会被安装在该环境中，不会对系统环境产生影响。要删除该虚拟环境，只需要将相应文件夹删除即可。 那么在安装了Anaconda时，创建独立的环境命令如下（其中tf为自己取的虚拟环境名称）： conda create -n tf 进入虚拟环境 source activate tf 安装需要的模块 conda install tensorflow-gpu 列出环境中所有已装的模块 conda list 退出虚拟环境 source deactivate 列出所有的环境(包括base) conda env list 删除某个虚拟环境 conda remove -n tf -all]]></content>
   </entry>
   <entry>
     <title><![CDATA[Caffe "in-place" operation]]></title>
