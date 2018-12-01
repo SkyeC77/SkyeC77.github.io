@@ -127,18 +127,18 @@
 
 
 
-  <meta name="description" content="之前一直不是很理解感受野是什么，因此认真地看了下相关知识，在这里记录一下~  感受野，指的是一个特定的CNN特征在输入空间所受影响的区域，可以用中心位置(center location)和大小(size)来表征；用来表示网络内部不同神经元对原图像的感受范围大小，也就是CNN每一层输出的特征图（feature map）上的像素点在原始图像上映射的区域大小。 由于网络结构中普遍使用卷积层和池化层，层与">
+  <meta name="description" content="之前一直不是很理解感受野是什么，因此认真地看了下相关知识，在这里记录一下~  感受野是什么感受野，指的是一个特定的CNN特征在输入空间所受影响的区域，可以用中心位置(center location)和大小(size)来表征；用来表示网络内部不同神经元对原图像的感受范围大小，也就是CNN每一层输出的特征图（feature map）上的像素点在原始图像上映射的区域大小。 由于网络结构中普遍使用卷积层和">
 <meta name="keywords" content="DL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="感受野（Receptive Field）">
 <meta property="og:url" content="http://yoursite.com/2018/11/23/ReceptiveField/index.html">
 <meta property="og:site_name" content="Notes">
-<meta property="og:description" content="之前一直不是很理解感受野是什么，因此认真地看了下相关知识，在这里记录一下~  感受野，指的是一个特定的CNN特征在输入空间所受影响的区域，可以用中心位置(center location)和大小(size)来表征；用来表示网络内部不同神经元对原图像的感受范围大小，也就是CNN每一层输出的特征图（feature map）上的像素点在原始图像上映射的区域大小。 由于网络结构中普遍使用卷积层和池化层，层与">
+<meta property="og:description" content="之前一直不是很理解感受野是什么，因此认真地看了下相关知识，在这里记录一下~  感受野是什么感受野，指的是一个特定的CNN特征在输入空间所受影响的区域，可以用中心位置(center location)和大小(size)来表征；用来表示网络内部不同神经元对原图像的感受范围大小，也就是CNN每一层输出的特征图（feature map）上的像素点在原始图像上映射的区域大小。 由于网络结构中普遍使用卷积层和">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-01T15:18:19.567Z">
+<meta property="og:updated_time" content="2018-12-01T15:36:00.397Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="感受野（Receptive Field）">
-<meta name="twitter:description" content="之前一直不是很理解感受野是什么，因此认真地看了下相关知识，在这里记录一下~  感受野，指的是一个特定的CNN特征在输入空间所受影响的区域，可以用中心位置(center location)和大小(size)来表征；用来表示网络内部不同神经元对原图像的感受范围大小，也就是CNN每一层输出的特征图（feature map）上的像素点在原始图像上映射的区域大小。 由于网络结构中普遍使用卷积层和池化层，层与">
+<meta name="twitter:description" content="之前一直不是很理解感受野是什么，因此认真地看了下相关知识，在这里记录一下~  感受野是什么感受野，指的是一个特定的CNN特征在输入空间所受影响的区域，可以用中心位置(center location)和大小(size)来表征；用来表示网络内部不同神经元对原图像的感受范围大小，也就是CNN每一层输出的特征图（feature map）上的像素点在原始图像上映射的区域大小。 由于网络结构中普遍使用卷积层和">
 
 
 
@@ -465,7 +465,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-01 23:18:19" itemprop="dateModified" datetime="2018-12-01T23:18:19+08:00">2018-12-01</time>
+                <time title="Modified: 2018-12-01 23:36:00" itemprop="dateModified" datetime="2018-12-01T23:36:00+08:00">2018-12-01</time>
               
             
           </span>
@@ -518,7 +518,7 @@
       
         <p>之前一直不是很理解感受野是什么，因此认真地看了下相关知识，在这里记录一下~</p>
 <hr>
-<p>感受野，指的是一个特定的CNN特征在输入空间所受影响的区域，可以用<strong>中心位置</strong>(<em>center location</em>)和<strong>大小</strong>(<em>size</em>)来表征；用来表示网络内部不同神经元对原图像的感受范围大小，也就是CNN每一层输出的特征图（<em>feature map</em>）上的像素点在原始图像上映射的区域大小。</p>
+<h2 id="感受野是什么"><a href="#感受野是什么" class="headerlink" title="感受野是什么"></a>感受野是什么</h2><p>感受野，指的是一个特定的CNN特征在输入空间所受影响的区域，可以用<strong>中心位置</strong>(<em>center location</em>)和<strong>大小</strong>(<em>size</em>)来表征；用来表示网络内部不同神经元对原图像的感受范围大小，也就是CNN每一层输出的特征图（<em>feature map</em>）上的像素点在原始图像上映射的区域大小。</p>
 <p>由于网络结构中普遍使用卷积层和池化层，层与层之间均通过<em>sliding filter</em>进行局部相连，所以每一个神经元都无法对原始图像的所有信息进行感知。而感受野越大，表示该神经元所能接触到的原始图像范围越大，也就意味着更可能蕴含全局、语义层的深层特征；感受野越小则表示其所包含的特征更趋向于局部、浅层的细节特征。</p>
 <p><strong>感受野的大小可以用来判断网络每一层的抽象层次。</strong></p>
 <hr>
@@ -745,7 +745,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#感受野中心位置及大小计算"><span class="nav-number">1.</span> <span class="nav-text">感受野中心位置及大小计算</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#感受野是什么"><span class="nav-number">1.</span> <span class="nav-text">感受野是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#感受野中心位置及大小计算"><span class="nav-number">2.</span> <span class="nav-text">感受野中心位置及大小计算</span></a></li></ol></div>
             
 
           </div>

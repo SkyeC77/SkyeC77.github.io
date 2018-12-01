@@ -127,19 +127,19 @@
 
 
 
-  <meta name="description" content="这些天看论文很多处用到mAP，一直只是知道这是一个评估指标，但具体怎么得来的不太清楚，现在有空学习一下~  Mean Average Precision(mAP)用于评估目标检测模型的物体分类和定位性能，由于该类问题中每一个图片都可能包含许多不同类别的物体，故图像分类问题的标准指标precision并不适用。 Ground Truth 对于目标检测问题，真实标签数据应包括图像中物体的类别以及该图像">
+  <meta name="description" content="这些天看论文很多处用到mAP，一直只是知道这是一个评估指标，但具体怎么得来的不太清楚，现在有空学习一下~  Mean Average Precision(mAP)用于评估目标检测模型的物体分类和定位性能，由于该类问题中每一个图片都可能包含许多不同类别的物体，故图像分类问题的标准指标precision并不适用。 Ground Truth对于目标检测问题，真实标签数据应包括图像中物体的类别以及该图像中">
 <meta name="keywords" content="DL,object detection">
 <meta property="og:type" content="article">
 <meta property="og:title" content="目标检测模型评估指标:mAP">
 <meta property="og:url" content="http://yoursite.com/2018/11/24/mAP/index.html">
 <meta property="og:site_name" content="Notes">
-<meta property="og:description" content="这些天看论文很多处用到mAP，一直只是知道这是一个评估指标，但具体怎么得来的不太清楚，现在有空学习一下~  Mean Average Precision(mAP)用于评估目标检测模型的物体分类和定位性能，由于该类问题中每一个图片都可能包含许多不同类别的物体，故图像分类问题的标准指标precision并不适用。 Ground Truth 对于目标检测问题，真实标签数据应包括图像中物体的类别以及该图像">
+<meta property="og:description" content="这些天看论文很多处用到mAP，一直只是知道这是一个评估指标，但具体怎么得来的不太清楚，现在有空学习一下~  Mean Average Precision(mAP)用于评估目标检测模型的物体分类和定位性能，由于该类问题中每一个图片都可能包含许多不同类别的物体，故图像分类问题的标准指标precision并不适用。 Ground Truth对于目标检测问题，真实标签数据应包括图像中物体的类别以及该图像中">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14184962-68a74391a33dcc79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600">
-<meta property="og:updated_time" content="2018-12-01T15:19:08.689Z">
+<meta property="og:updated_time" content="2018-12-01T15:34:26.836Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="目标检测模型评估指标:mAP">
-<meta name="twitter:description" content="这些天看论文很多处用到mAP，一直只是知道这是一个评估指标，但具体怎么得来的不太清楚，现在有空学习一下~  Mean Average Precision(mAP)用于评估目标检测模型的物体分类和定位性能，由于该类问题中每一个图片都可能包含许多不同类别的物体，故图像分类问题的标准指标precision并不适用。 Ground Truth 对于目标检测问题，真实标签数据应包括图像中物体的类别以及该图像">
+<meta name="twitter:description" content="这些天看论文很多处用到mAP，一直只是知道这是一个评估指标，但具体怎么得来的不太清楚，现在有空学习一下~  Mean Average Precision(mAP)用于评估目标检测模型的物体分类和定位性能，由于该类问题中每一个图片都可能包含许多不同类别的物体，故图像分类问题的标准指标precision并不适用。 Ground Truth对于目标检测问题，真实标签数据应包括图像中物体的类别以及该图像中">
 <meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/14184962-68a74391a33dcc79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600">
 
 
@@ -467,7 +467,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-01 23:19:08" itemprop="dateModified" datetime="2018-12-01T23:19:08+08:00">2018-12-01</time>
+                <time title="Modified: 2018-12-01 23:34:26" itemprop="dateModified" datetime="2018-12-01T23:34:26+08:00">2018-12-01</time>
               
             
           </span>
@@ -521,29 +521,25 @@
         <p>这些天看论文很多处用到mAP，一直只是知道这是一个评估指标，但具体怎么得来的不太清楚，现在有空学习一下~</p>
 <hr>
 <p>Mean Average Precision(mAP)用于评估目标检测模型的物体分类和定位性能，由于该类问题中每一个图片都可能包含许多不同类别的物体，故图像分类问题的标准指标<em>precision</em>并不适用。</p>
-<p><strong>Ground Truth</strong></p>
-<p>对于目标检测问题，真实标签数据应包括图像中物体的类别以及该图像中每个物体的真实边界框。</p>
-<p><strong>鉴别正确的检测结果并计算<em>precision</em>和<em>recall</em></strong></p>
-<p>首先需得到<em>True Positives</em>、<em>False Positives</em>、<em>True Negatives</em>、<em>False Negatives</em>。</p>
+<h2 id="Ground-Truth"><a href="#Ground-Truth" class="headerlink" title="Ground Truth"></a>Ground Truth</h2><p>对于目标检测问题，真实标签数据应包括图像中物体的类别以及该图像中每个物体的真实边界框。</p>
+<h3 id="鉴别正确的检测结果并计算precision和recall"><a href="#鉴别正确的检测结果并计算precision和recall" class="headerlink" title="鉴别正确的检测结果并计算precision和recall"></a>鉴别正确的检测结果并计算<em>precision</em>和<em>recall</em></h3><p>首先需得到<em>True Positives</em>、<em>False Positives</em>、<em>True Negatives</em>、<em>False Negatives</em>。</p>
 <p>为了得到TP和FP，需要使用IoU，即预测框与<em>ground truth</em>的交集与并集之比，从而确定一个检测结果是正确的还是错误的。最常用的阈值为0.5，即IoU&gt;0.5，认为是TP，否则FP（当然在一些数据集的评估指标中常采用不同的阈值）。</p>
 <p>计算<em>Recall</em>需要得到负样本的数量，但由于图片中并未预测到物体的每个部分都视作<em>Negative</em>，故很难得到TN。但可以只计算FN，即模型漏检的物体数。</p>
 <p>另一个需要考虑的是模型所给出的各个检测结果的置信度。通过改变置信度阈值可以改变一个预测框是属于<em>Positive</em>还是<em>Negative</em>。阈值以上的所有预测（Box + Class）均被认为是<em>Positve</em>。</p>
 <p>对于每一张图片，<em>ground truth</em>数据会给出图片中各个类别的实际物体数，计算每个<em>Positive</em>预测框与<em>ground truth</em>的IoU，并取值最大的预测框。然后根据IoU阈值，可以得到各个类别的TP和FP。由此，可计算出各个类别的<em>precision</em>。</p>
 <p>由TP，可以计算得到漏检的物体数，即FN。由此，可以计算出各个类别的<em>recall</em>。</p>
 <hr>
-<p><strong>计算mAP</strong></p>
-<p>mAP有许多不同的定义，在这里以PASCAL VOC竞赛的评估指标为例。</p>
+<h2 id="计算mAP"><a href="#计算mAP" class="headerlink" title="计算mAP"></a>计算mAP</h2><p>mAP有许多不同的定义，在这里以PASCAL VOC竞赛的评估指标为例。</p>
 <p>在这里，可以注意到，至少有两个变量会影响<em>precision</em>和<em>recall</em>，即IoU和置信度阈值。在PASCAL VOC竞赛中，IoU采用0.5。但置信度在不同模型中差异较大，会导致precision-recall曲线变化。于是，他们提出计算AP的一种方法。</p>
 <p>首先对模型预测结果进行排序，按<strong>预测值置信度</strong>降序，给定一个<em>rank</em>，<em>recall</em>和<em>precision</em>仅在高于该<em>rank</em>值的预测结果中进行计算。改变<em>rank</em>会导致<em>recall</em>值的变化，共选择11个不同的<em>recall</em>值，分别为0,0.1,0.2,…,1.0，可认为选择了11个<em>rank</em>。由于按照置信度排序，实际就等价于选择了11个置信度阈值。</p>
 <p><img src="https://upload-images.jianshu.io/upload_images/14184962-68a74391a33dcc79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt=""></p>
 <p>另外，在计算<em>precision</em>时，采用了插值的方法，对于某个<em>recall</em>值r，<em>precision</em>值取所有recall&gt;=r中的<strong>最大值</strong>，以保证PR曲线是单调递减的，减少由于样本排序中小的变化引起的PR曲线的抖动。AP就定义为在这11个<em>recall</em>下的<em>precision</em>的平均值，表征整个precision-recall曲线，也就是曲线下的面积。<em>average</em>是对<em>recall</em>取平均，<em>mean</em>是对所有类别取平均（每一个类别当做一次二分类任务）。</p>
 <p>对于各个类别，用上述方法计算AP，求所有类别平均即得到mAP。<br>在COCO数据集中，采用的是更严格的计算方式，计算了不同IoU阈值和物体大小下的AP(详情见<a href="http://cocodataset.org/#detection-eval" target="_blank" rel="noopener">COCO Detection Evaluation</a>)。</p>
-<p><strong>举个例子加深自己的理解：</strong></p>
-<p>一个二分类问题，每个类分别五个样本，如果分类器性能足够好的话，那么根据预测的置信度降序排序，ranking结果应该是+1, +1, +1, +1, +1, -1, -1, -1, -1, -1。然而实际情况中，分类器预测的label和score都不可能如此完美；按score降序，加入根据给定的<em>rank</em>值，选择了前四个score(这个置信分数可能由softmax、SVM等方式计算得到)，认为这四个是正样本，由此来计算<em>recall</em>和<em>precision</em>。而实际上这四个样本中只有两个是正样本，那么此时的<em>recall</em>=2(选择中包含的正样本数)/5(总共的正样本数)=0.4，<em>precision</em>=2(选择中的正样本数)/4(认为是正样本的个数)=0.5。</p>
+<h2 id="举个例子加深自己的理解："><a href="#举个例子加深自己的理解：" class="headerlink" title="举个例子加深自己的理解："></a>举个例子加深自己的理解：</h2><p>一个二分类问题，每个类分别五个样本，如果分类器性能足够好的话，那么根据预测的置信度降序排序，ranking结果应该是+1, +1, +1, +1, +1, -1, -1, -1, -1, -1。然而实际情况中，分类器预测的label和score都不可能如此完美；按score降序，加入根据给定的<em>rank</em>值，选择了前四个score(这个置信分数可能由softmax、SVM等方式计算得到)，认为这四个是正样本，由此来计算<em>recall</em>和<em>precision</em>。而实际上这四个样本中只有两个是正样本，那么此时的<em>recall</em>=2(选择中包含的正样本数)/5(总共的正样本数)=0.4，<em>precision</em>=2(选择中的正样本数)/4(认为是正样本的个数)=0.5。</p>
 <p>可以看出，<em>recall</em>和<em>precision</em>均和<em>rank</em>值有关，也就是由此选择前k个样本，关于k的函数。那么根据<em>rank</em>取值的不同，这里总共可以计算10对precision-recall值，recall依次为为1/，将它们画出来，得到的就是PR曲线。</p>
 <p>观察可以得到PR曲线的一个趋势就是，<em>recall</em>值越高，<em>precision</em>就越低。假如我选择所有样本来计算，那么当然包括了所有的正样本，此时的<em>recall</em>=1(此处认为ground truth所有框均被检测出来。这里有个问题需要思考下，在实际的目标检测问题中，是根据检测出的bbox来计算其与ground truth的IoU以判断bbox是否为正确检测，这样判定出的正确样本数为bbox的数量，往往不等于ground truth的数量；不过bbox的数量是需要经过NMS处理的，处理后基本与检测的目标数差不太多，)，<em>precision</em>就等于所有样本中正样本占比，当负样本占比很大时，那么<em>precision</em>就很小了。</p>
 <hr>
-<p>内容参考：<br>博客：<a href="http://tarangshah.com/blog/2018-01-27/what-is-map-understanding-the-statistic-of-choice-for-comparing-object-detection-models/" target="_blank" rel="noopener">Measuring Object Detection models - mAP - What is Mean Average Precision?</a><br>代码：<a href="https://github.com/facebookresearch/Detectron/blob/05d04d3a024f0991339de45872d02f2f50669b3d/lib/datasets/voc_eval.py" target="_blank" rel="noopener">VOC数据集的mAP实现</a>、<a href="https://github.com/cocodataset/cocoapi/blob/master/PythonAPI/pycocotools/cocoeval.py" target="_blank" rel="noopener">COCO数据集mAP计算API</a><br>论文：<a href="https://arxiv.org/pdf/1607.03476.pdf" target="_blank" rel="noopener">End-to-end training of object class detectors for mean average precision</a></p>
+<h2 id="内容参考："><a href="#内容参考：" class="headerlink" title="内容参考："></a>内容参考：</h2><p>博客：<a href="http://tarangshah.com/blog/2018-01-27/what-is-map-understanding-the-statistic-of-choice-for-comparing-object-detection-models/" target="_blank" rel="noopener">Measuring Object Detection models - mAP - What is Mean Average Precision?</a><br>代码：<a href="https://github.com/facebookresearch/Detectron/blob/05d04d3a024f0991339de45872d02f2f50669b3d/lib/datasets/voc_eval.py" target="_blank" rel="noopener">VOC数据集的mAP实现</a>、<a href="https://github.com/cocodataset/cocoapi/blob/master/PythonAPI/pycocotools/cocoeval.py" target="_blank" rel="noopener">COCO数据集mAP计算API</a><br>论文：<a href="https://arxiv.org/pdf/1607.03476.pdf" target="_blank" rel="noopener">End-to-end training of object class detectors for mean average precision</a></p>
 
       
     </div>
@@ -648,8 +644,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -746,6 +751,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Ground-Truth"><span class="nav-number">1.</span> <span class="nav-text">Ground Truth</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#鉴别正确的检测结果并计算precision和recall"><span class="nav-number">1.1.</span> <span class="nav-text">鉴别正确的检测结果并计算precision和recall</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算mAP"><span class="nav-number">2.</span> <span class="nav-text">计算mAP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#举个例子加深自己的理解："><span class="nav-number">3.</span> <span class="nav-text">举个例子加深自己的理解：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内容参考："><span class="nav-number">4.</span> <span class="nav-text">内容参考：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
