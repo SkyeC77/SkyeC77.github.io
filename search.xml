@@ -8,7 +8,7 @@
   <entry>
     <title><![CDATA[Yolov3 Network Architecture]]></title>
     <url>%2F2018%2F11%2F28%2Fyolov3%2F</url>
-    <content type="text"><![CDATA[贴一张Yolov3网络结构图~ Yolov3 is a fully convolutional network. It has 75 convolutional layers, with skip connections and upsampling layers. No form of pooling is used, and a convolutional layer with stride 2 is used to downsample the feature maps, which helps in preventing loss of low-level features often attributed to pooling. 详细内容见：A Closer Look at YOLOv3]]></content>
+    <content type="text"><![CDATA[贴一张Yolov3网络结构图~ filter = 3*(80+1+4) = 255 Yolov3 is a fully convolutional network. It has 75 convolutional layers, with skip connections and upsampling layers. No form of pooling is used, and a convolutional layer with stride 2 is used to downsample the feature maps, which helps in preventing loss of low-level features often attributed to pooling. 详细内容见：A Closer Look at YOLOv3]]></content>
   </entry>
   <entry>
     <title><![CDATA[Some notes for deep learning]]></title>
