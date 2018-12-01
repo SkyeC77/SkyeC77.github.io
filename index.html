@@ -228,7 +228,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
 
   </li>
         
@@ -245,7 +245,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>Über</a>
 
   </li>
         
@@ -279,7 +279,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
 
   </li>
         
@@ -296,7 +296,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
 
   </li>
 
@@ -307,7 +307,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Suche</a>
         </li>
       
     </ul>
@@ -382,7 +382,7 @@
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Skye Chen">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/hermione.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -415,14 +415,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2018-11-29 10:48:25 / Modified: 11:39:04" itemprop="dateCreated datePublished" datetime="2018-11-29T10:48:25+08:00">2018-11-29</time>
+              <time title="Post created: 2018-11-29 10:48:25 / Updated at: 11:39:04" itemprop="dateCreated datePublished" datetime="2018-11-29T10:48:25+08:00">2018-11-29</time>
             
 
             
@@ -462,13 +462,15 @@
       
         
           
-          在学习Caffe model中关于Layers内容时，发现一个问题，ReLU层的top blob和bottom blob相同，如下：123456layer &#123;  name: &quot;conv2/relu_3x3_reduce&quot;  type: &quot;ReLU&quot; 
+          在学习Caffe model中关于Layers内容时，发现一个问题，ReLU层的top blob和bottom blob相同，如下：123456layer &#123;  name: &quot;conv2/relu_3x3_reduce&quot;  type: &quot;ReLU&quot;  bottom: &quot;conv2/3x3_reduce&quot;  top: &quot;conv2/3x3_reduce&quot;&#125;
+后来查资料发现这是caffe的in-place操作，是为了节省内（显）存，以及省去反复申请和释放内存的时间。
+bottom blob和top 
           ...
           <!--noindex-->
           
             <div class="post-button text-center">
               <a class="btn" href="/2018/11/29/caffe_inplace/#more" rel="contents">
-                Read more &raquo;
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -534,7 +536,7 @@
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Skye Chen">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/hermione.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -567,14 +569,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2018-11-28 17:59:59" itemprop="dateCreated datePublished" datetime="2018-11-28T17:59:59+08:00">2018-11-28</time>
+              <time title="Post created: 2018-11-28 17:59:59" itemprop="dateCreated datePublished" datetime="2018-11-28T17:59:59+08:00">2018-11-28</time>
             
 
             
@@ -591,7 +593,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-11-30 18:06:16" itemprop="dateModified" datetime="2018-11-30T18:06:16+08:00">2018-11-30</time>
+                <time title="Updated at: 2018-11-30 18:06:16" itemprop="dateModified" datetime="2018-11-30T18:06:16+08:00">2018-11-30</time>
               
             
           </span>
@@ -628,13 +630,13 @@
           
           贴一张Yolov3网络结构图~
 
-Yolov3 is a fully convolutional network. It has 75 convolutional layers, with skip connections and upsampling layers. No form of pool
+Yolov3 is a fully convolutional network. It has 75 convolutional layers, with skip connections and upsampling layers. No form of pooling is used, and a convolutional layer with stride 2 is used to downsample the feature maps, which helps in preventing loss of low-level features ofte
           ...
           <!--noindex-->
           
             <div class="post-button text-center">
               <a class="btn" href="/2018/11/28/yolov3/#more" rel="contents">
-                Read more &raquo;
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -700,7 +702,7 @@ Yolov3 is a fully convolutional network. It has 75 convolutional layers, with sk
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Skye Chen">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/hermione.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -733,14 +735,14 @@ Yolov3 is a fully convolutional network. It has 75 convolutional layers, with sk
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2018-11-27 23:41:55" itemprop="dateCreated datePublished" datetime="2018-11-27T23:41:55+08:00">2018-11-27</time>
+              <time title="Post created: 2018-11-27 23:41:55" itemprop="dateCreated datePublished" datetime="2018-11-27T23:41:55+08:00">2018-11-27</time>
             
 
             
@@ -757,7 +759,7 @@ Yolov3 is a fully convolutional network. It has 75 convolutional layers, with sk
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-11-28 11:52:08" itemprop="dateModified" datetime="2018-11-28T11:52:08+08:00">2018-11-28</time>
+                <time title="Updated at: 2018-11-28 11:52:08" itemprop="dateModified" datetime="2018-11-28T11:52:08+08:00">2018-11-28</time>
               
             
           </span>
@@ -792,13 +794,19 @@ Yolov3 is a fully convolutional network. It has 75 convolutional layers, with sk
       
         
           
-          Object localization监督学习训练样本中给出bounding box的中心点坐标和长宽，bx,by,bw,bhNeed to output bx,by,bw,bh,class label and Pc(is there any object?存在物体的置信度。当不存在物体的时候，lo
+          Object localization监督学习训练样本中给出bounding box的中心点坐标和长宽，bx,by,bw,bhNeed to output bx,by,bw,bh,class label and Pc(is there any object?存在物体的置信度。当不存在物体的时候，loss函数只需计算Pc的准确度，其他项都不用考虑)。Y的维数为（1+4+class labels)。
+
+Landmark detection特征点检测
+需要输出一个是否有物体的置信度Pc,以及每个特征点的（x,y）坐标，所有训练集样本需包含这些labels。
+面部表情识别，人体关键点检测。
+
+Obje
           ...
           <!--noindex-->
           
             <div class="post-button text-center">
               <a class="btn" href="/2018/11/27/notes_for_dl/#more" rel="contents">
-                Read more &raquo;
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -864,7 +872,7 @@ Yolov3 is a fully convolutional network. It has 75 convolutional layers, with sk
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Skye Chen">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/hermione.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -897,14 +905,14 @@ Yolov3 is a fully convolutional network. It has 75 convolutional layers, with sk
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2018-11-24 10:19:28" itemprop="dateCreated datePublished" datetime="2018-11-24T10:19:28+08:00">2018-11-24</time>
+              <time title="Post created: 2018-11-24 10:19:28" itemprop="dateCreated datePublished" datetime="2018-11-24T10:19:28+08:00">2018-11-24</time>
             
 
             
@@ -921,7 +929,7 @@ Yolov3 is a fully convolutional network. It has 75 convolutional layers, with sk
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-11-25 17:15:57" itemprop="dateModified" datetime="2018-11-25T17:15:57+08:00">2018-11-25</time>
+                <time title="Updated at: 2018-11-25 17:15:57" itemprop="dateModified" datetime="2018-11-25T17:15:57+08:00">2018-11-25</time>
               
             
           </span>
@@ -958,13 +966,17 @@ Yolov3 is a fully convolutional network. It has 75 convolutional layers, with sk
           
           这些天看论文很多处用到mAP，一直只是知道这是一个评估指标，但具体怎么得来的不太清楚，现在有空学习一下~
 
-Mean Average Precision(mAP)用于评估目标检测模型的物体分类和定位性能，由于该类问题中每一个图片都可能包含许多不同类别的物体，故图像分类问题的标准指标precision
+Mean Average Precision(mAP)用于评估目标检测模型的物体分类和定位性能，由于该类问题中每一个图片都可能包含许多不同类别的物体，故图像分类问题的标准指标precision并不适用。
+Ground Truth
+对于目标检测问题，真实标签数据应包括图像中物体的类别以及该图像中每个物体的真实边界框。
+鉴别正确的检测结果并计算precision和recall
+首先需得到True Positives、False Positives、True Negatives、False N
           ...
           <!--noindex-->
           
             <div class="post-button text-center">
               <a class="btn" href="/2018/11/24/mAP/#more" rel="contents">
-                Read more &raquo;
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -1030,7 +1042,7 @@ Mean Average Precision(mAP)用于评估目标检测模型的物体分类和定�
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Skye Chen">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/hermione.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -1063,14 +1075,14 @@ Mean Average Precision(mAP)用于评估目标检测模型的物体分类和定�
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2018-11-23 18:59:52 / Modified: 20:12:43" itemprop="dateCreated datePublished" datetime="2018-11-23T18:59:52+08:00">2018-11-23</time>
+              <time title="Post created: 2018-11-23 18:59:52 / Updated at: 20:12:43" itemprop="dateCreated datePublished" datetime="2018-11-23T18:59:52+08:00">2018-11-23</time>
             
 
             
@@ -1112,13 +1124,14 @@ Mean Average Precision(mAP)用于评估目标检测模型的物体分类和定�
           
           之前一直不是很理解感受野是什么，因此认真地看了下相关知识，在这里记录一下~
 
-感受野，指的是一个特定的CNN特征在输入空间所受影响的区域，可以用中心位置(center location)和大小(size)来表征；用来表示网络内部不同神经元对原图像的感受范围大小，也就是CNN每一层输出的特征图（fea
+感受野，指的是一个特定的CNN特征在输入空间所受影响的区域，可以用中心位置(center location)和大小(size)来表征；用来表示网络内部不同神经元对原图像的感受范围大小，也就是CNN每一层输出的特征图（feature map）上的像素点在原始图像上映射的区域大小。
+由于网络结构中普遍使用卷积层和池化层，层与层之间均通过sliding filter进行局部相连，所以每一个神经元都无法对原始图像的所有信息进行感知。而感受野越大，表示该神经元所能接触到的原始图像范围越大，也就意味着更可能蕴含全局、语义层的深层
           ...
           <!--noindex-->
           
             <div class="post-button text-center">
               <a class="btn" href="/2018/11/23/ReceptiveField/#more" rel="contents">
-                Read more &raquo;
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -1184,7 +1197,7 @@ Mean Average Precision(mAP)用于评估目标检测模型的物体分类和定�
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Skye Chen">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/hermione.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -1217,14 +1230,14 @@ Mean Average Precision(mAP)用于评估目标检测模型的物体分类和定�
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2018-11-20 11:41:41" itemprop="dateCreated datePublished" datetime="2018-11-20T11:41:41+08:00">2018-11-20</time>
+              <time title="Post created: 2018-11-20 11:41:41" itemprop="dateCreated datePublished" datetime="2018-11-20T11:41:41+08:00">2018-11-20</time>
             
 
             
@@ -1241,7 +1254,7 @@ Mean Average Precision(mAP)用于评估目标检测模型的物体分类和定�
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-11-23 20:04:14" itemprop="dateModified" datetime="2018-11-23T20:04:14+08:00">2018-11-23</time>
+                <time title="Updated at: 2018-11-23 20:04:14" itemprop="dateModified" datetime="2018-11-23T20:04:14+08:00">2018-11-23</time>
               
             
           </span>
@@ -1279,13 +1292,16 @@ Mean Average Precision(mAP)用于评估目标检测模型的物体分类和定�
           未写完…
 最近为了做毕设，重新开始看目标检测相关的一系列论文，在这里记录一下自己的学习过程，也方便以后复习。
 
-R-CNN / 2013.11论文：Rich feature hierarchies for accurate object detection and semantic segmenta
+R-CNN / 2013.11论文：Rich feature hierarchies for accurate object detection and semantic segmentation
+Ross Girshick等人发表的这篇文章，首次将卷积神经网络用于「目标检测」，从这以后才有越来越多人将深度学习用于该问题，所以该论文意义深远。
+主要解决了传统方法的两个问题：
+1. 速度R-CNN使用启发式方法（Selective Search) ，先生成候选区域再检测，降低信息的冗余
           ...
           <!--noindex-->
           
             <div class="post-button text-center">
               <a class="btn" href="/2018/11/20/object_dection/#more" rel="contents">
-                Read more &raquo;
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -1351,7 +1367,7 @@ R-CNN / 2013.11论文：Rich feature hierarchies for accurate object detection a
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Skye Chen">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/hermione.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -1384,14 +1400,14 @@ R-CNN / 2013.11论文：Rich feature hierarchies for accurate object detection a
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2018-11-19 15:50:57" itemprop="dateCreated datePublished" datetime="2018-11-19T15:50:57+08:00">2018-11-19</time>
+              <time title="Post created: 2018-11-19 15:50:57" itemprop="dateCreated datePublished" datetime="2018-11-19T15:50:57+08:00">2018-11-19</time>
             
 
             
@@ -1427,13 +1443,17 @@ R-CNN / 2013.11论文：Rich feature hierarchies for accurate object detection a
       
         
           
-          Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in 
+          Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
+Quick StartCreate a new post1$ hexo new "My New Post"
+More info: Writing
+Run server1$ hexo server
+More in
           ...
           <!--noindex-->
           
             <div class="post-button text-center">
               <a class="btn" href="/2018/11/19/hello-world/#more" rel="contents">
-                Read more &raquo;
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -1511,6 +1531,8 @@ R-CNN / 2013.11论文：Rich feature hierarchies for accurate object detection a
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image" src="/images/hermione.jpg" alt="Skye Chen">
+            
               <p class="site-author-name" itemprop="name">Skye Chen</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
@@ -1523,7 +1545,7 @@ R-CNN / 2013.11论文：Rich feature hierarchies for accurate object detection a
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">7</span>
-                    <span class="site-state-item-name">posts</span>
+                    <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
               
@@ -1577,7 +1599,7 @@ R-CNN / 2013.11论文：Rich feature hierarchies for accurate object detection a
 </div>
 
 
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
