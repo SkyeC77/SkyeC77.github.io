@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Linux下监视NVIDIA的GPU使用情况]]></title>
+    <url>%2F2018%2F12%2F02%2Fwatch_gpu%2F</url>
+    <content type="text"><![CDATA[最近在服务器上跑网络，发现对命令行还是很不熟悉，每次都记不住要靠google，有很多东西要学。还是趁这个机会边学边整理吧。 显示当前GPU使用情况在命令行下，Nvidia自带了工具，会显示显存使用情况。命令如下： $ nvidia-smi 输出如图： nvdia-smi表含义表中第一行是显卡版本信息，第二行是标题栏，对应含义如下； GPU：显卡编号Fan：风扇转速，范围在0~100%Name：显卡名，这里是四张Geforce GTX 1080TiTemp：显卡温度，单位摄氏度Perf：显卡性能，P0~P12，P0表示最大性能Persistence-M：持续模式的状态，该模式耗能大，但是在新的GPU启动时，花费的时间更少；这里是off状态Pwr：Usage/Cap：能耗，当前能耗/最大能耗,单位瓦 Bus-Id：GPU总线的相关信息，domain:bus:device.functionDisp.A：GPU的显示是否初始化，display activateMemory-Usage：显存使用情况，当前占用显存/总显存 Uncorr. ECC：关于ECC的信息Volatile GPU-Util：浮动的GPU利用率Compute M.：计算模式，这里是默认模式 表格下半部分显示的是每个显卡上相应进程的显存占用情况。 $ nvidia-smi -h 通过该命令可获得mvidia-smi系统管理界面所有相关信息。 周期性更新GPU状态12$ whatis watchwatch(1) - execute a program periodically, showing output fullscreen $ watch [options] nvidia-smi options为可选参数，通常用-n，后接数字表示多少秒执行一次命令。 $ watch -n 20 nvidia-smi 会进入监视界面，并且每20秒会刷新一次显卡状态，退出监视模式只要按Ctrl+z。]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>OS</tag>
+        <tag>GPU</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[a virtualenv on linux]]></title>
     <url>%2F2018%2F12%2F01%2Fvirtualenv%2F</url>
     <content type="text"><![CDATA[前些天在实验室的服务器上部署环境跑网络。然后，自己总是忘记怎么进入自己搭建的虚拟环境，不得已在这里记录一下… 在自己的笔记本上安装了Anaconda，不过服务器上没有conda，只安装了python-virtualenv，不过效果也差不多。 例如： 创建名为’py3’的虚拟环境 virtualenv py3 默认情况下，虚拟环境会依赖系统环境中的site packages，如果不需要系统环境中的这些第三方包，则需要在上述命令后加上参数 --no-site-packages 来创建虚拟环境。 启动虚拟环境 cd py3source ./bin/activate 退出虚拟环境 deactivate 启动虚拟环境后，所有通过pip安装的模块都会被安装在该环境中，不会对系统环境产生影响。要删除该虚拟环境，只需要将相应文件夹删除即可。 那么在安装了Anaconda时，创建独立的环境命令如下（其中tf为自己取的虚拟环境名称）： conda create -n tf 进入虚拟环境 source activate tf 安装需要的模块 conda install tensorflow-gpu 列出环境中所有已装的模块 conda list 退出虚拟环境 source deactivate 列出所有的环境(包括base) conda env list 删除某个虚拟环境 conda remove -n tf -all]]></content>

@@ -127,18 +127,20 @@
 
 
 
-  <meta name="description" content="在学习Caffe model中关于Layers内容时，发现一个问题，ReLU层的top blob和bottom blob相同，如下：123456layer &amp;#123;  name: &amp;quot;conv2/relu_3x3_reduce&amp;quot;  type: &amp;quot;ReLU&amp;quot;  bottom: &amp;quot;conv2/3x3_reduce&amp;quot;  top: &amp;quot;">
-<meta name="keywords" content="DL,framework">
+  <meta name="description" content="最近在服务器上跑网络，发现对命令行还是很不熟悉，每次都记不住要靠google，有很多东西要学。还是趁这个机会边学边整理吧。  显示当前GPU使用情况在命令行下，Nvidia自带了工具，会显示显存使用情况。命令如下： $ nvidia-smi 输出如图：  nvdia-smi表含义表中第一行是显卡版本信息，第二行是标题栏，对应含义如下； GPU：显卡编号Fan：风扇转速，范围在0~100%Name：">
+<meta name="keywords" content="Linux,OS,GPU">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Caffe &quot;in-place&quot; operation">
-<meta property="og:url" content="http://yoursite.com/2018/11/29/caffe_inplace/index.html">
+<meta property="og:title" content="Linux下监视NVIDIA的GPU使用情况">
+<meta property="og:url" content="http://yoursite.com/2018/12/02/watch_gpu/index.html">
 <meta property="og:site_name" content="Notes">
-<meta property="og:description" content="在学习Caffe model中关于Layers内容时，发现一个问题，ReLU层的top blob和bottom blob相同，如下：123456layer &amp;#123;  name: &amp;quot;conv2/relu_3x3_reduce&amp;quot;  type: &amp;quot;ReLU&amp;quot;  bottom: &amp;quot;conv2/3x3_reduce&amp;quot;  top: &amp;quot;">
+<meta property="og:description" content="最近在服务器上跑网络，发现对命令行还是很不熟悉，每次都记不住要靠google，有很多东西要学。还是趁这个机会边学边整理吧。  显示当前GPU使用情况在命令行下，Nvidia自带了工具，会显示显存使用情况。命令如下： $ nvidia-smi 输出如图：  nvdia-smi表含义表中第一行是显卡版本信息，第二行是标题栏，对应含义如下； GPU：显卡编号Fan：风扇转速，范围在0~100%Name：">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-01T15:19:16.308Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14184962-f2a374580f44f847.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-02T11:12:04.881Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Caffe &quot;in-place&quot; operation">
-<meta name="twitter:description" content="在学习Caffe model中关于Layers内容时，发现一个问题，ReLU层的top blob和bottom blob相同，如下：123456layer &amp;#123;  name: &amp;quot;conv2/relu_3x3_reduce&amp;quot;  type: &amp;quot;ReLU&amp;quot;  bottom: &amp;quot;conv2/3x3_reduce&amp;quot;  top: &amp;quot;">
+<meta name="twitter:title" content="Linux下监视NVIDIA的GPU使用情况">
+<meta name="twitter:description" content="最近在服务器上跑网络，发现对命令行还是很不熟悉，每次都记不住要靠google，有很多东西要学。还是趁这个机会边学边整理吧。  显示当前GPU使用情况在命令行下，Nvidia自带了工具，会显示显存使用情况。命令如下： $ nvidia-smi 输出如图：  nvdia-smi表含义表中第一行是显卡版本信息，第二行是标题栏，对应含义如下； GPU：显卡编号Fan：风扇转速，范围在0~100%Name：">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/14184962-f2a374580f44f847.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -147,7 +149,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/29/caffe_inplace/">
+  <link rel="canonical" href="http://yoursite.com/2018/12/02/watch_gpu/">
 
 
 
@@ -157,7 +159,7 @@
   };
 </script>
 
-  <title>Caffe "in-place" operation | Notes</title>
+  <title>Linux下监视NVIDIA的GPU使用情况 | Notes</title>
   
 
 
@@ -406,7 +408,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/29/caffe_inplace/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/02/watch_gpu/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Skye Chen">
@@ -423,7 +425,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Caffe "in-place" operation
+          <h1 class="post-title" itemprop="name headline">Linux下监视NVIDIA的GPU使用情况
               
             
           </h1>
@@ -448,24 +450,12 @@
                 
               
 
-              <time title="Created: 2018-11-29 10:48:25" itemprop="dateCreated datePublished" datetime="2018-11-29T10:48:25+08:00">2018-11-29</time>
+              <time title="Created: 2018-12-02 18:20:37 / Modified: 19:12:04" itemprop="dateCreated datePublished" datetime="2018-12-02T18:20:37+08:00">2018-12-02</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-12-01 23:19:16" itemprop="dateModified" datetime="2018-12-01T23:19:16+08:00">2018-12-01</time>
               
             
           </span>
@@ -482,7 +472,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Caffe/" itemprop="url" rel="index"><span itemprop="name">Caffe</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
 
                 
                 
@@ -516,12 +506,26 @@
       
 
       
-        <p>在学习Caffe model中关于Layers内容时，发现一个问题，ReLU层的top blob和bottom blob相同，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">layer &#123;</span><br><span class="line">  name: &quot;conv2/relu_3x3_reduce&quot;</span><br><span class="line">  type: &quot;ReLU&quot;</span><br><span class="line">  bottom: &quot;conv2/3x3_reduce&quot;</span><br><span class="line">  top: &quot;conv2/3x3_reduce&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>后来查资料发现这是caffe的in-place操作，是为了节省内（显）存，以及省去反复申请和释放内存的时间。</p>
-<p>bottom blob和top blob名称相同，说明是同一个blob，占用的是内存的同一块空间。在这里也就是说，该ReLU操作是对输入blob本身进行操作，再将其输出。</p>
-<p>如果定义的两个<code>layer</code>的top blob名称是一样的，那么这两个<code>layer</code>的bottom blob也一定是该top blob，并且按<code>layer</code>的定义顺序对该bottom blob进行操作。如果layer不是对bottom blob本身进行操作，那么top blob就不能与bottom blob相同，也不允许多个layer的top blob同名。因为假如这样做，后运算的layer会将top blob覆盖成其运算的结果，前面的layer的运算结果就消失了。</p>
-<p>convolution、pooling层由于输入输出的size一般不一致，所以不能支持in-place操作；而ReLU函数是逐个对元素进行计算，不该变size，所以支持。AlexNet、VGGnet等都是在ReLU层使用in-place计算，ResNet中，BatchNorm和Scale也都使用了in-place计算。</p>
-<p>目前已知支持in-place的有：ReLU层、Dropout层、BatchNorm层、Scale层。(除此之外，其他大部分layer貌似在定义时<code>name</code>和<code>top</code>是相同的。)</p>
+        <p>最近在服务器上跑网络，发现对命令行还是很不熟悉，每次都记不住要靠google，有很多东西要学。还是趁这个机会边学边整理吧。</p>
+<hr>
+<h2 id="显示当前GPU使用情况"><a href="#显示当前GPU使用情况" class="headerlink" title="显示当前GPU使用情况"></a>显示当前GPU使用情况</h2><p>在命令行下，Nvidia自带了工具，会显示显存使用情况。命令如下：</p>
+<p><code>$ nvidia-smi</code></p>
+<p>输出如图：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/14184962-f2a374580f44f847.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="nvdia-smi表含义"><a href="#nvdia-smi表含义" class="headerlink" title="nvdia-smi表含义"></a>nvdia-smi表含义</h2><p>表中第一行是显卡版本信息，第二行是标题栏，对应含义如下；</p>
+<p><strong>GPU</strong>：显卡编号<br><strong>Fan</strong>：风扇转速，范围在0~100%<br><strong>Name</strong>：显卡名，这里是四张Geforce GTX 1080Ti<br><strong>Temp</strong>：显卡温度，单位摄氏度<br><strong>Perf</strong>：显卡性能，P0~P12，P0表示最大性能<br><strong>Persistence-M</strong>：持续模式的状态，该模式耗能大，但是在新的GPU启动时，花费的时间更少；这里是off状态<br><strong>Pwr：Usage/Cap</strong>：能耗，当前能耗/最大能耗,单位瓦</p>
+<p><strong>Bus-Id</strong>：GPU总线的相关信息，domain:bus:device.function<br><strong>Disp.A</strong>：GPU的显示是否初始化，display activate<br><strong>Memory-Usage</strong>：显存使用情况，当前占用显存/总显存</p>
+<p><strong>Uncorr. ECC</strong>：关于ECC的信息<br><strong>Volatile GPU-Util</strong>：浮动的GPU利用率<br><strong>Compute M.</strong>：计算模式，这里是默认模式</p>
+<p>表格下半部分显示的是每个显卡上相应进程的显存占用情况。</p>
+<hr>
+<p><code>$ nvidia-smi -h</code></p>
+<p>通过该命令可获得mvidia-smi系统管理界面所有相关信息。</p>
+<hr>
+<h2 id="周期性更新GPU状态"><a href="#周期性更新GPU状态" class="headerlink" title="周期性更新GPU状态"></a>周期性更新GPU状态</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ whatis watch</span><br><span class="line">watch(1)        - execute a program periodically, showing output fullscreen</span><br></pre></td></tr></table></figure>
+<p><code>$ watch [options] nvidia-smi</code></p>
+<p>options为可选参数，通常用<code>-n</code>，后接数字表示多少秒执行一次命令。</p>
+<p><code>$ watch -n 20 nvidia-smi</code></p>
+<p>会进入监视界面，并且每20秒会刷新一次显卡状态，退出监视模式只要按<code>Ctrl+z</code>。</p>
 
       
     </div>
@@ -554,9 +558,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/DL/" rel="tag"><i class="fa fa-tag"></i> DL</a>
+            <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
           
-            <a href="/tags/framework/" rel="tag"><i class="fa fa-tag"></i> framework</a>
+            <a href="/tags/OS/" rel="tag"><i class="fa fa-tag"></i> OS</a>
+          
+            <a href="/tags/GPU/" rel="tag"><i class="fa fa-tag"></i> GPU</a>
           
         </div>
       
@@ -569,8 +575,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/28/yolov3/" rel="next" title="Yolov3 Network Architecture">
-                <i class="fa fa-chevron-left"></i> Yolov3 Network Architecture
+              <a href="/2018/12/01/virtualenv/" rel="next" title="a virtualenv on linux">
+                <i class="fa fa-chevron-left"></i> a virtualenv on linux
               </a>
             
           </div>
@@ -578,10 +584,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/01/virtualenv/" rel="prev" title="a virtualenv on linux">
-                a virtualenv on linux <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -626,8 +628,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -732,6 +743,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#显示当前GPU使用情况"><span class="nav-number">1.</span> <span class="nav-text">显示当前GPU使用情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nvdia-smi表含义"><span class="nav-number">2.</span> <span class="nav-text">nvdia-smi表含义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#周期性更新GPU状态"><span class="nav-number">3.</span> <span class="nav-text">周期性更新GPU状态</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

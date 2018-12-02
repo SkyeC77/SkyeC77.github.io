@@ -8,8 +8,29 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Sat, 01 Dec 2018 15:18:32 GMT</pubDate>
+    <pubDate>Sun, 02 Dec 2018 11:12:04 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Linux下监视NVIDIA的GPU使用情况</title>
+      <link>http://yoursite.com/2018/12/02/watch_gpu/</link>
+      <guid>http://yoursite.com/2018/12/02/watch_gpu/</guid>
+      <pubDate>Sun, 02 Dec 2018 10:20:37 GMT</pubDate>
+      <description>
+      
+        
+        
+          &lt;p&gt;最近在服务器上跑网络，发现对命令行还是很不熟悉，每次都记不住要靠google，有很多东西要学。还是趁这个机会边学边整理吧。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;显示当前GPU使用情况&quot;&gt;&lt;a href=&quot;#显示当前GPU使用情况&quot; class=&quot;headerlink&quot; tit
+        
+      
+      </description>
+      
+      <content:encoded><![CDATA[<p>最近在服务器上跑网络，发现对命令行还是很不熟悉，每次都记不住要靠google，有很多东西要学。还是趁这个机会边学边整理吧。</p><hr><h2 id="显示当前GPU使用情况"><a href="#显示当前GPU使用情况" class="headerlink" title="显示当前GPU使用情况"></a>显示当前GPU使用情况</h2><p>在命令行下，Nvidia自带了工具，会显示显存使用情况。命令如下：</p><p><code>$ nvidia-smi</code></p><p>输出如图：</p><p><img src="https://upload-images.jianshu.io/upload_images/14184962-f2a374580f44f847.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p><h2 id="nvdia-smi表含义"><a href="#nvdia-smi表含义" class="headerlink" title="nvdia-smi表含义"></a>nvdia-smi表含义</h2><p>表中第一行是显卡版本信息，第二行是标题栏，对应含义如下；</p><p><strong>GPU</strong>：显卡编号<br><strong>Fan</strong>：风扇转速，范围在0~100%<br><strong>Name</strong>：显卡名，这里是四张Geforce GTX 1080Ti<br><strong>Temp</strong>：显卡温度，单位摄氏度<br><strong>Perf</strong>：显卡性能，P0~P12，P0表示最大性能<br><strong>Persistence-M</strong>：持续模式的状态，该模式耗能大，但是在新的GPU启动时，花费的时间更少；这里是off状态<br><strong>Pwr：Usage/Cap</strong>：能耗，当前能耗/最大能耗,单位瓦</p><p><strong>Bus-Id</strong>：GPU总线的相关信息，domain:bus:device.function<br><strong>Disp.A</strong>：GPU的显示是否初始化，display activate<br><strong>Memory-Usage</strong>：显存使用情况，当前占用显存/总显存</p><p><strong>Uncorr. ECC</strong>：关于ECC的信息<br><strong>Volatile GPU-Util</strong>：浮动的GPU利用率<br><strong>Compute M.</strong>：计算模式，这里是默认模式</p><p>表格下半部分显示的是每个显卡上相应进程的显存占用情况。</p><hr><p><code>$ nvidia-smi -h</code></p><p>通过该命令可获得mvidia-smi系统管理界面所有相关信息。</p><hr><h2 id="周期性更新GPU状态"><a href="#周期性更新GPU状态" class="headerlink" title="周期性更新GPU状态"></a>周期性更新GPU状态</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ whatis watch</span><br><span class="line">watch(1)        - execute a program periodically, showing output fullscreen</span><br></pre></td></tr></table></figure><p><code>$ watch [options] nvidia-smi</code></p><p>options为可选参数，通常用<code>-n</code>，后接数字表示多少秒执行一次命令。</p><p><code>$ watch -n 20 nvidia-smi</code></p><p>会进入监视界面，并且每20秒会刷新一次显卡状态，退出监视模式只要按<code>Ctrl+z</code>。</p>]]></content:encoded>
+      
+      <comments>http://yoursite.com/2018/12/02/watch_gpu/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>a virtualenv on linux</title>
