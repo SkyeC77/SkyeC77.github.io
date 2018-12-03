@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[train yolov3]]></title>
+    <url>%2F2018%2F12%2F03%2Ftrain_yolov3%2F</url>
+    <content type="text"><![CDATA[这些天在复现YOLOV3时，训练过程中遇到了一些问题，在这里记录一下跑网络的过程~ 训练指令注意根据情况修改Makefile文件，并重新make，以及cfg文件夹下yolov3-voc.cfg文件，在darknet目录下执行命令： 格式：./darknet detector train [data_cfg] [network_cfg] [weight] -gpus [gpu_nums] CPU上训练： ./darknet detector train cfg/voc.data cfg/yolov3-voc.cfg darknet.conv.74 多GPU训练： ./darknet detector train cfg/voc.data cfg/yolov3-voc.cfg darknet.conv.74 -gpus 0,1 输出重定向 如果需要将训练过程可视化，则训练时将输出重定向得到训练日志文件； ./darknet detector train cfg/voc.data cfg/yolov3-voc.cfg darknet.conv.74 -gpus 0,1 2&gt;1 | tee train_yolov3.log 从检查点开始恢复训练 ./darknet detector train cfg/voc.data cfg/yolov3-voc.cfg backup/yolov3.backup -gpus 0,1 输出解释 每个子batch输出一次，详见src文件夹下yolo_layer.c文件的forward_yolo_layer函数。 printf(&quot;Region %d Avg IOU: %f, Class: %f, Obj: %f, No Obj: %f, .5R: %f, .75R: %f, count: %d\n&quot;, net.index, avg_iou/count, avg_cat/class_count, avg_obj/count, avg_anyobj/(l.w*l.h*l.n*l.batch), recall/count, recall75/count, count); Region [xx]: cfg文件中的layer的索引； Avg IOU: 当前迭代过程中，预测的bbox和ground truth的平均交并比，理想值为1； Class: 标注物体的分类准确率，理想值为1； Obj: 期望该值越接近1越好； No Obj: 期望该值越小越好； .5R: IoU=0.5为阈值时，当前子batch中recall值； .75R: IoU=0.75为阈值时，当前子batch中recall值； count: 当前subdivision的子batch中所有图片中包含的正样本数。count = 0表示该批次该尺度上没有检测到对象，会导致Avg IOU、Class、obj、.5R、.75R值均为-nan或nan。这可能是由于在许多小物体上训练导致的，所以在显存允许的情况下，可适当增大batch的大小，可一定程度减少nan的出现。 每个batch输出一次，详见examples文件夹下detect.c文件中train_detector函数: printf(&quot;%ld: %f, %f avg, %f rate, %lf seconds, %d images\n&quot;, get_current_batch(net), loss, avg_loss, get_current_rate(net), what_time_is_it_now()-time, i*imgs); 问题及解决CUDA: out of memory显存不够引起的，修改yolov3-voc.cfg文件。 修改[net]层参数，增大subdivisions或调小batch，因为训练时实际每次前向的图片数量 = batch/subdivisions。 关闭多尺度训练。将所有[yolo]层中random参数修改为random = 0。 参数调整 Batch_Size：想要模型快速收敛，最好是增大Batch_Size，但可能导致陷入局部最小的情况；减小Batch_Size可能会有更好的效果，但是如果类别数较多，Batch_Size又太小，会导致loss函数震荡不收敛。一般在调试时，根据GPU显存，设置为最大（一般要求为8的倍数），选部分数据跑几个Batch看看loss是否在变小，再选择合适的值。yolov3-voc.cfg文件中对应参数为batch。 如果内存不够大，增大subdivision值，将batch分割，每个子batch大小为 batch/subdivisions。 为了应对小目标检测，网络输入大一些更好,即增大weight和height。 random = 1会使用多尺度训练，随机使用不同尺寸的图片进行训练；如果为0，则每次训练图片大小与输入尺寸一致。]]></content>
+      <categories>
+        <category>Computer Vision</category>
+      </categories>
+      <tags>
+        <tag>DL</tag>
+        <tag>object detection</tag>
+        <tag>one stage</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Linux下监视NVIDIA的GPU使用情况]]></title>
     <url>%2F2018%2F12%2F02%2Fwatch_gpu%2F</url>
     <content type="text"><![CDATA[最近在服务器上跑网络，发现对命令行还是很不熟悉，每次都记不住要靠google，有很多东西要学。还是趁这个机会边学边整理吧。 显示当前GPU使用情况在命令行下，Nvidia自带了工具，会显示显存使用情况。命令如下： $ nvidia-smi 输出如图： nvdia-smi表含义表中第一行是显卡版本信息，第二行是标题栏，对应含义如下； GPU：显卡编号Fan：风扇转速，范围在0~100%Name：显卡名，这里是四张Geforce GTX 1080TiTemp：显卡温度，单位摄氏度Perf：显卡性能，P0~P12，P0表示最大性能Persistence-M：持续模式的状态，该模式耗能大，但是在新的GPU启动时，花费的时间更少；这里是off状态Pwr：Usage/Cap：能耗，当前能耗/最大能耗,单位瓦 Bus-Id：GPU总线的相关信息，domain:bus:device.functionDisp.A：GPU的显示是否初始化，display activateMemory-Usage：显存使用情况，当前占用显存/总显存 Uncorr. ECC：关于ECC的信息Volatile GPU-Util：浮动的GPU利用率Compute M.：计算模式，这里是默认模式 表格下半部分显示的是每个显卡上相应进程的显存占用情况。 $ nvidia-smi -h 通过该命令可获得mvidia-smi系统管理界面所有相关信息。 周期性更新GPU状态12$ whatis watchwatch(1) - execute a program periodically, showing output fullscreen $ watch [options] nvidia-smi options为可选参数，通常用-n，后接数字表示多少秒执行一次命令。 $ watch -n 20 nvidia-smi 会进入监视界面，并且每20秒会刷新一次显卡状态，退出监视模式只要按Ctrl+z。]]></content>

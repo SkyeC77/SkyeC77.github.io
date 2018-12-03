@@ -8,8 +8,29 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Sun, 02 Dec 2018 11:12:04 GMT</pubDate>
+    <pubDate>Mon, 03 Dec 2018 07:25:28 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>train yolov3</title>
+      <link>http://yoursite.com/2018/12/03/train_yolov3/</link>
+      <guid>http://yoursite.com/2018/12/03/train_yolov3/</guid>
+      <pubDate>Mon, 03 Dec 2018 05:17:46 GMT</pubDate>
+      <description>
+      
+        
+        
+          &lt;p&gt;这些天在复现YOLOV3时，训练过程中遇到了一些问题，在这里记录一下跑网络的过程~&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;训练指令&quot;&gt;&lt;a href=&quot;#训练指令&quot; class=&quot;headerlink&quot; title=&quot;训练指令&quot;&gt;&lt;/a&gt;训练指令&lt;/h2&gt;&lt;p&gt;注意根据情况修改
+        
+      
+      </description>
+      
+      <content:encoded><![CDATA[<p>这些天在复现YOLOV3时，训练过程中遇到了一些问题，在这里记录一下跑网络的过程~</p><hr><h2 id="训练指令"><a href="#训练指令" class="headerlink" title="训练指令"></a>训练指令</h2><p>注意根据情况修改Makefile文件，并重新make，以及cfg文件夹下yolov3-voc.cfg文件，在darknet目录下执行命令：</p><p>格式：<code>./darknet detector train [data_cfg] [network_cfg] [weight] -gpus [gpu_nums]</code></p><p><strong>CPU上训练</strong>：</p><p><code>./darknet detector train cfg/voc.data cfg/yolov3-voc.cfg darknet.conv.74</code></p><p><strong>多GPU训练</strong>：</p><p><code>./darknet detector train cfg/voc.data cfg/yolov3-voc.cfg darknet.conv.74 -gpus 0,1</code></p><p><strong>输出重定向</strong></p><p>如果需要将训练过程可视化，则训练时将输出重定向得到训练日志文件；</p><p><code>./darknet detector train cfg/voc.data cfg/yolov3-voc.cfg darknet.conv.74 -gpus 0,1 2&gt;1 | tee train_yolov3.log</code></p><p><strong>从检查点开始恢复训练</strong></p><p><code>./darknet detector train cfg/voc.data cfg/yolov3-voc.cfg backup/yolov3.backup -gpus 0,1</code></p><hr><h2 id="输出解释"><a href="#输出解释" class="headerlink" title="输出解释"></a>输出解释</h2><ol><li>每个子batch输出一次，详见src文件夹下yolo_layer.c文件的<em>forward_yolo_layer</em>函数。</li></ol><p><code>printf(&quot;Region %d Avg IOU: %f, Class: %f, Obj: %f, No Obj: %f, .5R: %f, .75R: %f,  count: %d\n&quot;, net.index, avg_iou/count, avg_cat/class_count, avg_obj/count, avg_anyobj/(l.w*l.h*l.n*l.batch), recall/count, recall75/count, count);</code></p><ul><li><p><code>Region [xx]</code>: cfg文件中的layer的索引；</p></li><li><p><code>Avg IOU</code>: 当前迭代过程中，预测的bbox和ground truth的平均交并比，理想值为1；</p></li><li><p><code>Class</code>: 标注物体的分类准确率，理想值为1；</p></li><li><p><code>Obj</code>: 期望该值越接近1越好；</p></li><li><p><code>No Obj</code>: 期望该值越小越好；</p></li><li><p><code>.5R</code>: IoU=0.5为阈值时，当前子batch中recall值；</p></li><li><p><code>.75R</code>: IoU=0.75为阈值时，当前子batch中recall值；</p></li><li><p><code>count</code>: 当前subdivision的子batch中所有图片中包含的正样本数。<code>count = 0</code>表示该批次该尺度上没有检测到对象，会导致<code>Avg IOU</code>、<code>Class</code>、<code>obj</code>、<code>.5R</code>、<code>.75R</code>值均为<code>-nan</code>或<code>nan</code>。这可能是由于在许多小物体上训练导致的，所以在显存允许的情况下，可适当增大<code>batch</code>的大小，可一定程度减少nan的出现。</p></li></ul><ol start="2"><li>每个batch输出一次，详见examples文件夹下detect.c文件中<em>train_detector</em>函数:</li></ol><p><code>printf(&quot;%ld: %f, %f avg, %f rate, %lf seconds, %d images\n&quot;, get_current_batch(net), loss, avg_loss, get_current_rate(net), what_time_is_it_now()-time, i*imgs);</code></p><hr><h2 id="问题及解决"><a href="#问题及解决" class="headerlink" title="问题及解决"></a>问题及解决</h2><h3 id="CUDA-out-of-memory"><a href="#CUDA-out-of-memory" class="headerlink" title="CUDA: out of memory"></a>CUDA: out of memory</h3><p>显存不够引起的，修改yolov3-voc.cfg文件。</p><ul><li><p>修改<code>[net]</code>层参数，增大<code>subdivisions</code>或调小<code>batch</code>，因为训练时实际每次前向的图片数量 = batch/subdivisions。</p></li><li><p>关闭多尺度训练。将所有<code>[yolo]</code>层中<code>random</code>参数修改为<code>random = 0</code>。</p></li></ul><hr><h2 id="参数调整"><a href="#参数调整" class="headerlink" title="参数调整"></a>参数调整</h2><ol><li><p>Batch_Size：想要模型快速收敛，最好是增大Batch_Size，但可能导致陷入局部最小的情况；减小Batch_Size可能会有更好的效果，但是如果类别数较多，Batch_Size又太小，会导致loss函数震荡不收敛。一般在调试时，根据GPU显存，设置为最大（一般要求为8的倍数），选部分数据跑几个Batch看看loss是否在变小，再选择合适的值。yolov3-voc.cfg文件中对应参数为<code>batch</code>。</p></li><li><p>如果内存不够大，增大<code>subdivision</code>值，将batch分割，每个子batch大小为 batch/subdivisions。</p></li><li><p>为了应对小目标检测，网络输入大一些更好,即增大<code>weight</code>和<code>height</code>。</p></li><li><p><code>random = 1</code>会使用多尺度训练，随机使用不同尺寸的图片进行训练；如果为0，则每次训练图片大小与输入尺寸一致。</p></li></ol>]]></content:encoded>
+      
+      <comments>http://yoursite.com/2018/12/03/train_yolov3/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>Linux下监视NVIDIA的GPU使用情况</title>
