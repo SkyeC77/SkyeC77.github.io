@@ -135,7 +135,7 @@
 <meta property="og:site_name" content="Notes">
 <meta property="og:description" content="这些天在复现YOLOV3时，训练过程中遇到了一些问题，在这里记录一下跑网络的过程~  训练指令注意根据情况修改Makefile文件，并重新make，以及cfg文件夹下yolov3-voc.cfg文件，在darknet目录下执行命令： 格式：./darknet detector train [data_cfg] [network_cfg] [weight] -gpus [gpu_nums] CPU上">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-03T07:25:28.169Z">
+<meta property="og:updated_time" content="2018-12-03T11:49:32.797Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="train yolov3">
 <meta name="twitter:description" content="这些天在复现YOLOV3时，训练过程中遇到了一些问题，在这里记录一下跑网络的过程~  训练指令注意根据情况修改Makefile文件，并重新make，以及cfg文件夹下yolov3-voc.cfg文件，在darknet目录下执行命令： 格式：./darknet detector train [data_cfg] [network_cfg] [weight] -gpus [gpu_nums] CPU上">
@@ -448,7 +448,7 @@
                 
               
 
-              <time title="Created: 2018-12-03 13:17:46 / Modified: 15:25:28" itemprop="dateCreated datePublished" datetime="2018-12-03T13:17:46+08:00">2018-12-03</time>
+              <time title="Created: 2018-12-03 13:17:46 / Modified: 19:49:32" itemprop="dateCreated datePublished" datetime="2018-12-03T13:17:46+08:00">2018-12-03</time>
             
 
             
@@ -509,7 +509,7 @@
 <h2 id="训练指令"><a href="#训练指令" class="headerlink" title="训练指令"></a>训练指令</h2><p>注意根据情况修改Makefile文件，并重新make，以及cfg文件夹下yolov3-voc.cfg文件，在darknet目录下执行命令：</p>
 <p>格式：<code>./darknet detector train [data_cfg] [network_cfg] [weight] -gpus [gpu_nums]</code></p>
 <p><strong>CPU上训练</strong>：</p>
-<p><code>./darknet detector train cfg/voc.data cfg/yolov3-voc.cfg darknet.conv.74</code></p>
+<p><code>./darknet -ngpu detector train cfg/voc.data cfg/yolov3-voc.cfg darknet.conv.74</code></p>
 <p><strong>多GPU训练</strong>：</p>
 <p><code>./darknet detector train cfg/voc.data cfg/yolov3-voc.cfg darknet.conv.74 -gpus 0,1</code></p>
 <p><strong>输出重定向</strong></p>
@@ -518,10 +518,8 @@
 <p><strong>从检查点开始恢复训练</strong></p>
 <p><code>./darknet detector train cfg/voc.data cfg/yolov3-voc.cfg backup/yolov3.backup -gpus 0,1</code></p>
 <hr>
-<h2 id="输出解释"><a href="#输出解释" class="headerlink" title="输出解释"></a>输出解释</h2><ol>
-<li>每个子batch输出一次，详见src文件夹下yolo_layer.c文件的<em>forward_yolo_layer</em>函数。</li>
-</ol>
-<p><code>printf(&quot;Region %d Avg IOU: %f, Class: %f, Obj: %f, No Obj: %f, .5R: %f, .75R: %f,  count: %d\n&quot;, net.index, avg_iou/count, avg_cat/class_count, avg_obj/count, avg_anyobj/(l.w*l.h*l.n*l.batch), recall/count, recall75/count, count);</code></p>
+<h2 id="输出解释"><a href="#输出解释" class="headerlink" title="输出解释"></a>输出解释</h2><h3 id="forward-yolo-layer"><a href="#forward-yolo-layer" class="headerlink" title="forward_yolo_layer()"></a><em>forward_yolo_layer()</em></h3><p>每个子batch输出一次，详见src文件夹下yolo_layer.c文件的<em>forward_yolo_layer</em>函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printf(&quot;Region %d Avg IOU: %f, Class: %f, Obj: %f, No Obj: %f, .5R: %f, .75R: %f,  count: %d\n&quot;, net.index, avg_iou/count, avg_cat/class_count, avg_obj/count, avg_anyobj/(l.w*l.h*l.n*l.batch), recall/count, recall75/count, count);</span><br></pre></td></tr></table></figure>
 <ul>
 <li><p><code>Region [xx]</code>: cfg文件中的layer的索引；</p>
 </li>
@@ -540,10 +538,8 @@
 <li><p><code>count</code>: 当前subdivision的子batch中所有图片中包含的正样本数。<code>count = 0</code>表示该批次该尺度上没有检测到对象，会导致<code>Avg IOU</code>、<code>Class</code>、<code>obj</code>、<code>.5R</code>、<code>.75R</code>值均为<code>-nan</code>或<code>nan</code>。这可能是由于在许多小物体上训练导致的，所以在显存允许的情况下，可适当增大<code>batch</code>的大小，可一定程度减少nan的出现。</p>
 </li>
 </ul>
-<ol start="2">
-<li>每个batch输出一次，详见examples文件夹下detect.c文件中<em>train_detector</em>函数:</li>
-</ol>
-<p><code>printf(&quot;%ld: %f, %f avg, %f rate, %lf seconds, %d images\n&quot;, get_current_batch(net), loss, avg_loss, get_current_rate(net), what_time_is_it_now()-time, i*imgs);</code></p>
+<h3 id="train-detector"><a href="#train-detector" class="headerlink" title="train_detector()"></a><em>train_detector()</em></h3><p>每个batch输出一次loss，详见examples文件夹下detect.c文件中<em>train_detector</em>函数:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printf(&quot;%ld: %f, %f avg, %f rate, %lf seconds, %d images\n&quot;, get_current_batch(net), loss, avg_loss, get_current_rate(net), what_time_is_it_now()-time, i*imgs);</span><br></pre></td></tr></table></figure>
 <hr>
 <h2 id="问题及解决"><a href="#问题及解决" class="headerlink" title="问题及解决"></a>问题及解决</h2><h3 id="CUDA-out-of-memory"><a href="#CUDA-out-of-memory" class="headerlink" title="CUDA: out of memory"></a>CUDA: out of memory</h3><p>显存不够引起的，修改yolov3-voc.cfg文件。</p>
 <ul>
@@ -622,6 +618,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/12/05/visuialization/" rel="prev" title="yolov3训练可视化">
+                yolov3训练可视化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -692,7 +692,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -713,7 +713,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">4</span>
+                      
+                    
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -748,7 +750,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">11</span>
+                      
+                    
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -790,7 +794,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#训练指令"><span class="nav-number">1.</span> <span class="nav-text">训练指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输出解释"><span class="nav-number">2.</span> <span class="nav-text">输出解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题及解决"><span class="nav-number">3.</span> <span class="nav-text">问题及解决</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CUDA-out-of-memory"><span class="nav-number">3.1.</span> <span class="nav-text">CUDA: out of memory</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数调整"><span class="nav-number">4.</span> <span class="nav-text">参数调整</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#训练指令"><span class="nav-number">1.</span> <span class="nav-text">训练指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输出解释"><span class="nav-number">2.</span> <span class="nav-text">输出解释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#forward-yolo-layer"><span class="nav-number">2.1.</span> <span class="nav-text">forward_yolo_layer()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#train-detector"><span class="nav-number">2.2.</span> <span class="nav-text">train_detector()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题及解决"><span class="nav-number">3.</span> <span class="nav-text">问题及解决</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CUDA-out-of-memory"><span class="nav-number">3.1.</span> <span class="nav-text">CUDA: out of memory</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数调整"><span class="nav-number">4.</span> <span class="nav-text">参数调整</span></a></li></ol></div>
             
 
           </div>
