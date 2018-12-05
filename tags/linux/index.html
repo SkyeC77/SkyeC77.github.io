@@ -129,7 +129,7 @@
 
   <meta property="og:type" content="website">
 <meta property="og:title" content="Notes">
-<meta property="og:url" content="http://yoursite.com/tags/Linux/index.html">
+<meta property="og:url" content="http://yoursite.com/tags/linux/index.html">
 <meta property="og:site_name" content="Notes">
 <meta property="og:locale" content="en">
 <meta name="twitter:card" content="summary">
@@ -142,7 +142,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/Linux/">
+  <link rel="canonical" href="http://yoursite.com/tags/linux/">
 
 
 
@@ -152,7 +152,7 @@
   };
 </script>
 
-  <title>Tag: Linux | Notes</title>
+  <title>Tag: linux | Notes</title>
   
 
 
@@ -414,7 +414,7 @@
 
     <div id="posts" class="posts-collapse">
       <div class="collection-title">
-        <h1>Linux<small>Tag</small>
+        <h1>linux<small>Tag</small>
         </h1>
       </div>
 
@@ -426,43 +426,17 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2018/12/05/visuialization/" itemprop="url">
+            <a class="post-title-link" href="/2018/12/01/virtualenv/" itemprop="url">
               
-                <span itemprop="name">yolov3训练可视化</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-05T10:24:38+08:00" content="2018-12-05">
-          12-05
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/12/02/watch_gpu/" itemprop="url">
-              
-                <span itemprop="name">Linux下监视NVIDIA的GPU使用情况</span>
+                <span itemprop="name">a virtualenv on linux</span>
               
             </a>
         
       </h2>
 
       <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-02T18:20:37+08:00" content="2018-12-02">
-          12-02
+        <time class="post-time" itemprop="dateCreated" datetime="2018-12-01T14:43:22+08:00" content="2018-12-01">
+          12-01
         </time>
       </div>
 
@@ -1089,6 +1063,50 @@
     });
 
     $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
+p-btn-close').click(onPopupClose);
     $('.popup').click(function(e){
       e.stopPropagation();
     });
