@@ -135,10 +135,12 @@
 <meta property="og:site_name" content="Notes">
 <meta property="og:description" content="之前一直不是很理解感受野是什么，因此认真地看了下相关知识，在这里记录一下~  感受野是什么感受野，指的是一个特定的CNN特征在输入空间所受影响的区域，可以用中心位置(center location)和大小(size)来表征；用来表示网络内部不同神经元对原图像的感受范围大小，也就是CNN每一层输出的特征图（feature map）上的像素点在原始图像上映射的区域大小。 由于网络结构中普遍使用卷积层和">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-01T15:36:00.397Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14184962-4d691cb3a6e1470d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-25T05:11:50.823Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="感受野（Receptive Field）">
 <meta name="twitter:description" content="之前一直不是很理解感受野是什么，因此认真地看了下相关知识，在这里记录一下~  感受野是什么感受野，指的是一个特定的CNN特征在输入空间所受影响的区域，可以用中心位置(center location)和大小(size)来表征；用来表示网络内部不同神经元对原图像的感受范围大小，也就是CNN每一层输出的特征图（feature map）上的像素点在原始图像上映射的区域大小。 由于网络结构中普遍使用卷积层和">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/14184962-4d691cb3a6e1470d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -465,7 +467,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-01 23:36:00" itemprop="dateModified" datetime="2018-12-01T23:36:00+08:00">2018-12-01</time>
+                <time title="Modified: 2018-12-25 13:11:50" itemprop="dateModified" datetime="2018-12-25T13:11:50+08:00">2018-12-25</time>
               
             
           </span>
@@ -522,10 +524,16 @@
 <p>由于网络结构中普遍使用卷积层和池化层，层与层之间均通过<em>sliding filter</em>进行局部相连，所以每一个神经元都无法对原始图像的所有信息进行感知。而感受野越大，表示该神经元所能接触到的原始图像范围越大，也就意味着更可能蕴含全局、语义层的深层特征；感受野越小则表示其所包含的特征更趋向于局部、浅层的细节特征。</p>
 <p><strong>感受野的大小可以用来判断网络每一层的抽象层次。</strong></p>
 <hr>
-<p>输入层每个单元的感受野是1，层次越深，感受野越大，是由<em>kernel size</em>和<em>stride size</em>共同决定的。而对于深度CNN，我们无法直接追踪到感受野信息。</p>
+<p>可以通过不同的方法来增大感受野，例如：堆叠更多层（depth），降采样（pooling,striding），滤波器膨胀（dilated convolutions）等。理论上，堆叠更多层使感受野线性增大，但并不是这么简单。</p>
+<p>输入层每个单元的感受野是1，层次越深，感受野越大，是由<em>kernel size</em>和<em>stride size</em>共同决定的，一个特征图的所有特征都有相同大小的感受野，特征被标记在其感受野所在的中心（也就是每个像素）。而对于深度CNN，我们无法直接追踪到感受野信息。</p>
 <h2 id="感受野中心位置及大小计算"><a href="#感受野中心位置及大小计算" class="headerlink" title="感受野中心位置及大小计算"></a>感受野中心位置及大小计算</h2><p>具体公式推导及代码参考：<a href="https://medium.com/mlreview/a-guide-to-receptive-field-arithmetic-for-convolutional-neural-networks-e0f514068807" target="_blank" rel="noopener">A guide to receptive field arithmetic for Convolutional Neural Networks</a></p>
+<p>这里介绍了CNN特征图可视化的一种新方法，可视化可以显示感受野的信息。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/14184962-4d691cb3a6e1470d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <hr>
-<p>对于一个CNN特征来说，感受野中的每个像素值并不是同等重要。一个像素点越接近感受野中心，它对输出特征的计算所起作用越大，这意味着某一个特征不仅仅是受限在输入图片某个特定的区域，而且呈指数级聚焦在区域的中心。</p>
+<p>对于一个CNN特征来说，感受野特征图中的每个像素值并不是同等重要。一个像素点越接近感受野中心，它对输出特征的计算所起作用越大，这意味着某一个特征不仅仅是受限在输入图片某个特定的区域，而且呈指数级聚焦在区域的中心。</p>
+<p><strong>effective receptive field(ERF)</strong></p>
+<p>前向过程，可以看到中心的感受野的像素可以通过更多不同的路径将信息传递给输出，而边缘的一些像素只能通过单一的路径传播（卷积核在该像素上运算的次数），所以，ERF对最终输出计算的影响看起来更像是一个高斯分布而非均一分布。</p>
+<p>并且，感受野是动态的并且随着训练过程不断变化，在bp过程产生的影响就是中心的像素会比边缘像素有更大的梯度幅值。</p>
 
       
     </div>

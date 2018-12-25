@@ -135,7 +135,7 @@
 <meta property="og:site_name" content="Notes">
 <meta property="og:description" content="最近学习了一下Caffe，并且用迁移学习完成了一个简单的猫狗分类问题。在学习的过程中，踩了很多坑，这里主要记录一下关于几个prototxt配置文件的问题。 prototxt文件 train_val.prototxt：网络配置文件，用于训练 deploy.prototxt：网络配置文件，用于inference，测试 solver.prototxt：参数文件，用于训练，设置了学习率、优化方法等，slo">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-15T03:40:36.369Z">
+<meta property="og:updated_time" content="2018-12-15T03:48:31.453Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Caffe--&quot;deploy.prototxt&quot; and &quot;train_val.prototxt&quot;">
 <meta name="twitter:description" content="最近学习了一下Caffe，并且用迁移学习完成了一个简单的猫狗分类问题。在学习的过程中，踩了很多坑，这里主要记录一下关于几个prototxt配置文件的问题。 prototxt文件 train_val.prototxt：网络配置文件，用于训练 deploy.prototxt：网络配置文件，用于inference，测试 solver.prototxt：参数文件，用于训练，设置了学习率、优化方法等，slo">
@@ -448,7 +448,7 @@
                 
               
 
-              <time title="Created: 2018-12-15 09:55:12 / Modified: 11:40:36" itemprop="dateCreated datePublished" datetime="2018-12-15T09:55:12+08:00">2018-12-15</time>
+              <time title="Created: 2018-12-15 09:55:12 / Modified: 11:48:31" itemprop="dateCreated datePublished" datetime="2018-12-15T09:55:12+08:00">2018-12-15</time>
             
 
             
@@ -529,10 +529,10 @@
 <ol start="4">
 <li><p>在训练过程中一般将偏置项b的学习率设置为权重矩阵w的两倍，最终的学习率等于train_val.prototxt中的lr_mult*base_lr（slover.prototxt中设置）。在fine-tune时，base_lr要设置得很小，一般在1e-5数量级，而最后一层的lr_mult设置得较大，因为该层是重新学习，一般是其它层的10倍。</p>
 </li>
-<li><p>slover参数都需要进行修改，原来的参数适用于training from scratch，学习率、步长、迭代次数都较大，我们都需要改得比较小。</p>
+<li><p>solver参数都需要进行修改，原来的参数适用于training from scratch，学习率、步长、迭代次数都较大，我们都需要改得比较小。</p>
 </li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># Based on https://github.com/BVLC/caffe/tree/master/models/bvlc_googlenet</span><br><span class="line">net: &quot;train_val.prototxt&quot;</span><br><span class="line">display: 50</span><br><span class="line">base_lr: 0.0001</span><br><span class="line">lr_policy: &quot;fixed&quot;</span><br><span class="line">max_iter: 15000</span><br><span class="line">momentum: 0.9</span><br><span class="line">weight_decay: 0.0002</span><br><span class="line">snapshot_prefix: &quot;transfer_learning&quot;</span><br><span class="line">solver_mode: CPU</span><br><span class="line">test_iter: 100</span><br><span class="line">test_interval: 1000</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#Based on https://github.com/BVLC/caffe/tree/master/models/bvlc_googlenet</span><br><span class="line">net: &quot;train_val.prototxt&quot;</span><br><span class="line">display: 50</span><br><span class="line">base_lr: 0.0001</span><br><span class="line">lr_policy: &quot;fixed&quot;</span><br><span class="line">max_iter: 15000</span><br><span class="line">momentum: 0.9</span><br><span class="line">weight_decay: 0.0002</span><br><span class="line">snapshot_prefix: &quot;transfer_learning&quot;</span><br><span class="line">solver_mode: CPU</span><br><span class="line">test_iter: 100</span><br><span class="line">test_interval: 1000</span><br></pre></td></tr></table></figure>
 <ol start="6">
 <li>在做inference时，使用deploy.prototxt文件，其实是train_val.prototxt文件改动了前面的数据层以及最后的计算loss的部分。这时数据层很简单：</li>
 </ol>
