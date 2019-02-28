@@ -8,11 +8,11 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Mon, 17 Sep 2018 16:50:29 GMT</pubDate>
+    <pubDate>Thu, 28 Feb 2019 08:56:20 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
-      <title></title>
+      <title>ERFNet eval</title>
       <link>http://yoursite.com/2019/02/28/README_eval/</link>
       <guid>http://yoursite.com/2019/02/28/README_eval/</guid>
       <pubDate>Thu, 28 Feb 2019 08:36:58 GMT</pubDate>
@@ -31,7 +31,7 @@
     </item>
     
     <item>
-      <title></title>
+      <title>ERFNet train</title>
       <link>http://yoursite.com/2019/02/28/README_train/</link>
       <guid>http://yoursite.com/2019/02/28/README_train/</guid>
       <pubDate>Thu, 28 Feb 2019 08:36:27 GMT</pubDate>
@@ -50,7 +50,7 @@
     </item>
     
     <item>
-      <title></title>
+      <title>ERFNet overview</title>
       <link>http://yoursite.com/2019/01/18/README1/</link>
       <guid>http://yoursite.com/2019/01/18/README1/</guid>
       <pubDate>Fri, 18 Jan 2019 13:29:22 GMT</pubDate>
