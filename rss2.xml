@@ -8,8 +8,31 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Sat, 15 Dec 2018 03:48:31 GMT</pubDate>
+    <pubDate>Fri, 06 Dec 2019 10:49:36 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>The Love Letter --200天纪念</title>
+      <link>http://yoursite.com/2019/12/06/loveletter1/</link>
+      <guid>http://yoursite.com/2019/12/06/loveletter1/</guid>
+      <pubDate>Fri, 06 Dec 2019 10:42:21 GMT</pubDate>
+      <description>
+      
+        
+        
+          &lt;p&gt;二狗子写给我的第一封情书~&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;琪琦：&lt;/p&gt;
+&lt;p&gt;展信悦。&lt;/p&gt;
+&lt;p&gt;来井冈山的路上火车经过山区，恰好是晚上，天是暗的，山是暗的，树也是暗的，在一片寂静与黑暗里，有些许人家点亮着灯光。琪琦，我这时想起你。我以前以为自己是个能忍受寂寞的人，后来和你
+        
+      
+      </description>
+      
+      <content:encoded><![CDATA[<p>二狗子写给我的第一封情书~</p><hr><p>琪琦：</p><p>展信悦。</p><p>来井冈山的路上火车经过山区，恰好是晚上，天是暗的，山是暗的，树也是暗的，在一片寂静与黑暗里，有些许人家点亮着灯光。琪琦，我这时想起你。我以前以为自己是个能忍受寂寞的人，后来和你在一起以后，变成了一个黏人的小孩子。对我而言，你就是这一盏灯火，滚滚红尘里我回头知道还有一个人在默默等我回家。</p><p>昨天报名之后的大把闲暇时光，我也与你说过，在学院里面转了转，有凉亭、秋千和对坐而谈的老人。荡着秋千时我曾想着若是你在该多好，我推着你慢悠悠地晃荡，你和我说着耳鬓厮磨的情话。我就这样一边生活一边想你，我快乐时希望与你一同快乐，我无聊时想着你在我便不会无聊。我盼望下一个假期快些到来，可我还得再数三十多个日子，三十多个日日夜夜里我该被相思折磨得有多煎熬。</p><p>为了想与你说话，我在睡觉前常常回想我们的事情，渴望在沉沉睡梦中再见你一眼。琪琦，你看，我睡的地方多么舒适，这里的空气多么清新，外面的风也温柔，它绕着我们用力说，快亲吻呀，快抱住她。风确实在沙沙地吹，但我又去同谁说呢。我好想你，连梦里都低声呼唤你的名字。</p><p>前些天，我看到了一句话，很想老了以后能对你说。</p><p>我这一生都是坚定的唯物主义者，唯独对你，我渴望有来生。</p><p>我渴望和你在一起的每一生。</p><p>吻你。</p><p>想你的男朋友</p><p>2019.08.30在一起200天纪念日</p><p>于井冈山干部学院</p><hr>]]></content:encoded>
+      
+      <comments>http://yoursite.com/2019/12/06/loveletter1/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>Caffe--&quot;deploy.prototxt&quot; and &quot;train_val.prototxt&quot;</title>
@@ -191,27 +214,6 @@
       <content:encoded><![CDATA[<h2 id="Object-localization"><a href="#Object-localization" class="headerlink" title="Object localization"></a>Object localization</h2><p>监督学习<br>训练样本中给出bounding box的中心点坐标和长宽，bx,by,bw,bh<br>Need to output bx,by,bw,bh,class label and Pc(is there any object?存在物体的置信度。当不存在物体的时候，loss函数只需计算Pc的准确度，其他项都不用考虑)。Y的维数为（1+4+class labels)。</p><hr><h2 id="Landmark-detection"><a href="#Landmark-detection" class="headerlink" title="Landmark detection"></a>Landmark detection</h2><p>特征点检测</p><p>需要输出一个是否有物体的置信度Pc,以及每个特征点的（x,y）坐标，所有训练集样本需包含这些labels。</p><p>面部表情识别，人体关键点检测。</p><hr><h2 id="Object-detection"><a href="#Object-detection" class="headerlink" title="Object detection"></a>Object detection</h2><h3 id="sliding-windows"><a href="#sliding-windows" class="headerlink" title="sliding windows"></a>sliding windows</h3><p>训练：根据滑动窗口的大小，使用适当裁剪的训练集样本，训练是否图片中有需要检测的物体物体。<br>检测：滑动窗口目标检测，对每一个窗口做一次检测，得到一个label,直到遍历图像每个区域。<br>缺点：computation expensive。步幅大时，粗粒度会影响检测性能，无法准确定位；细粒度或小步幅时计算成本高。所以一般使用简单的线性分类器。</p><h3 id="convolutional-implementation-of-sliding-windows"><a href="#convolutional-implementation-of-sliding-windows" class="headerlink" title="convolutional implementation of sliding windows"></a>convolutional implementation of sliding windows</h3><p>Turning FC layer into convolutional layers<br>没有全连接层时，输入图片的大小可以改变。<br>该卷积操作的原理是：不需要将需检测的输入图片分割成滑窗的大小的子集，分贝执行前向传播；而是直接将图片输入给卷积网络，其中的公共区域可以共享很多计算，一次性输出所有检测值。但边界框位置可能不够准确。</p><h3 id="bounding-box-prediction"><a href="#bounding-box-prediction" class="headerlink" title="bounding box prediction"></a>bounding box prediction</h3><p>YOLO algorithm</p><p>一个格子只存在一个物体时<br>用一个网格划分输入图片（3<em>3）<br>Labels for training for each grid cell:置信度Pc，bx,by,bw,bh, class labels<br>将物体分配给中心所在的格子(训练集中该格子的Pc=1)<br>output dimension:(1+4+class labels)\</em>3*3,<br>bx,by,bw,bh are specified relative to the grid cell(bbox中心所在cell的左上角坐标为0，右下角为1，bx,by是相对（0,0)的偏移量，值在0到1之间；bw,bh是bbox的长宽与grid cell边长的比值，可大于1。可以用sigmoid等函数处理，使其位于0到1之间）</p><h3 id="Intersection-over-Union"><a href="#Intersection-over-Union" class="headerlink" title="Intersection over Union"></a>Intersection over Union</h3><p>“Correct” if IoU&gt;=0.5(human chosen)<br>the predicted bbox with the ground truth(prior bbox)</p><h3 id="Non-max-Suppresion"><a href="#Non-max-Suppresion" class="headerlink" title="Non-max Suppresion"></a>Non-max Suppresion</h3><p>确保每个物体只被检测出一次。<br>先去掉所有Pc小于一定阈值的边界框(认为没有检测到物体），找出检测结果中Pc最大的bbox,然后去掉与其IoU大于阈值的检测框；再选择剩下的bbox中概率最高的…直到处理完所有框。<br>如果图像中有多中类别的物体，应该分别对每种label各<strong>独立</strong>做一次NMS。</p><hr><h3 id="Anchor-box"><a href="#Anchor-box" class="headerlink" title="Anchor box"></a>Anchor box</h3><p>使一个grid cell可以检测出多个物体。</p><p><strong>Previously</strong>:<br>each object in training image is assigned to grid cell that contains that object’s midpoint.</p><p><strong>With anchor boxes</strong>:<br>each object in training image is assigned to grid cell that contains object’s midpoint and anchor box for the grid cell with highest IoU. match with <strong>(grid cell, anchor box)</strong>.</p><p>for each grid cell, the output Y dimension is (1+4+class labels)*anchor boxes.</p><p>use k-means algorithm to choose anchor box.</p><p>grid cells越多，一个cell中出现多个物体的可能性更小。</p><hr><h2 id="Region-proposal-network-RPN"><a href="#Region-proposal-network-RPN" class="headerlink" title="Region proposal network(RPN)"></a>Region proposal network(RPN)</h2><p>two stages<br>利用图像分割算法，选出候选区域，在每种色块(blobs)上跑分类器。先找出可能的2000个色块，然后在这些色块上放置bbox，在这些色块上跑分类器。</p><p>R-CNN: Propose regions. Classify proposed regions one at a time. Output label + bounding box.</p><p>Fast R-CNN: Propose regions. Useconvolution implementation of sliding windows to classify all the proposed regions.</p><p>Faster R-CNN: Use convolutional network to propose regions.</p>]]></content:encoded>
       
       <comments>http://yoursite.com/2018/11/27/notes_for_dl/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>目标检测模型评估指标:mAP</title>
-      <link>http://yoursite.com/2018/11/24/mAP/</link>
-      <guid>http://yoursite.com/2018/11/24/mAP/</guid>
-      <pubDate>Sat, 24 Nov 2018 02:19:28 GMT</pubDate>
-      <description>
-      
-        
-        
-          &lt;p&gt;这些天看论文很多处用到mAP，一直只是知道这是一个评估指标，但具体怎么得来的不太清楚，现在有空学习一下~&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;Mean Average Precision(mAP)用于评估目标检测模型的物体分类和定位性能，由于该类问题中每一个图片都可能包含许多不同类别的
-        
-      
-      </description>
-      
-      <content:encoded><![CDATA[<p>这些天看论文很多处用到mAP，一直只是知道这是一个评估指标，但具体怎么得来的不太清楚，现在有空学习一下~</p><hr><p>Mean Average Precision(mAP)用于评估目标检测模型的物体分类和定位性能，由于该类问题中每一个图片都可能包含许多不同类别的物体，故图像分类问题的标准指标<em>precision</em>并不适用。</p><h2 id="Ground-Truth"><a href="#Ground-Truth" class="headerlink" title="Ground Truth"></a>Ground Truth</h2><p>对于目标检测问题，真实标签数据应包括图像中物体的类别以及该图像中每个物体的真实边界框。</p><h3 id="鉴别正确的检测结果并计算precision和recall"><a href="#鉴别正确的检测结果并计算precision和recall" class="headerlink" title="鉴别正确的检测结果并计算precision和recall"></a>鉴别正确的检测结果并计算<em>precision</em>和<em>recall</em></h3><p>首先需得到<em>True Positives</em>、<em>False Positives</em>、<em>True Negatives</em>、<em>False Negatives</em>。</p><p>为了得到TP和FP，需要使用IoU，即预测框与<em>ground truth</em>的交集与并集之比，从而确定一个检测结果是正确的还是错误的。最常用的阈值为0.5，即IoU&gt;0.5，认为是TP，否则FP（当然在一些数据集的评估指标中常采用不同的阈值）。</p><p>计算<em>Recall</em>需要得到负样本的数量，但由于图片中并未预测到物体的每个部分都视作<em>Negative</em>，故很难得到TN。但可以只计算FN，即模型漏检的物体数。</p><p>另一个需要考虑的是模型所给出的各个检测结果的置信度。通过改变置信度阈值可以改变一个预测框是属于<em>Positive</em>还是<em>Negative</em>。阈值以上的所有预测（Box + Class）均被认为是<em>Positve</em>。</p><p>对于每一张图片，<em>ground truth</em>数据会给出图片中各个类别的实际物体数，计算每个<em>Positive</em>预测框与<em>ground truth</em>的IoU，并取值最大的预测框。然后根据IoU阈值，可以得到各个类别的TP和FP。由此，可计算出各个类别的<em>precision</em>。</p><p>由TP，可以计算得到漏检的物体数，即FN。由此，可以计算出各个类别的<em>recall</em>。</p><hr><h2 id="计算mAP"><a href="#计算mAP" class="headerlink" title="计算mAP"></a>计算mAP</h2><p>mAP有许多不同的定义，在这里以PASCAL VOC竞赛的评估指标为例。</p><p>在这里，可以注意到，至少有两个变量会影响<em>precision</em>和<em>recall</em>，即IoU和置信度阈值。在PASCAL VOC竞赛中，IoU采用0.5。但置信度在不同模型中差异较大，会导致precision-recall曲线变化。于是，他们提出计算AP的一种方法。</p><p>首先对模型预测结果进行排序，按<strong>预测值置信度</strong>降序，给定一个<em>rank</em>，<em>recall</em>和<em>precision</em>仅在高于该<em>rank</em>值的预测结果中进行计算。改变<em>rank</em>会导致<em>recall</em>值的变化，共选择11个不同的<em>recall</em>值，分别为0,0.1,0.2,…,1.0，可认为选择了11个<em>rank</em>。由于按照置信度排序，实际就等价于选择了11个置信度阈值。</p><p><img src="https://upload-images.jianshu.io/upload_images/14184962-68a74391a33dcc79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt=""></p><p>另外，在计算<em>precision</em>时，采用了插值的方法，对于某个<em>recall</em>值r，<em>precision</em>值取所有recall&gt;=r中的<strong>最大值</strong>，以保证PR曲线是单调递减的，减少由于样本排序中小的变化引起的PR曲线的抖动。AP就定义为在这11个<em>recall</em>下的<em>precision</em>的平均值，表征整个precision-recall曲线，也就是曲线下的面积。<em>average</em>是对<em>recall</em>取平均，<em>mean</em>是对所有类别取平均（每一个类别当做一次二分类任务）。</p><p>对于各个类别，用上述方法计算AP，求所有类别平均即得到mAP。<br>在COCO数据集中，采用的是更严格的计算方式，计算了不同IoU阈值和物体大小下的AP(详情见<a href="http://cocodataset.org/#detection-eval" target="_blank" rel="noopener">COCO Detection Evaluation</a>)。</p><h2 id="举个例子加深自己的理解："><a href="#举个例子加深自己的理解：" class="headerlink" title="举个例子加深自己的理解："></a>举个例子加深自己的理解：</h2><p>一个二分类问题，每个类分别五个样本，如果分类器性能足够好的话，那么根据预测的置信度降序排序，ranking结果应该是+1, +1, +1, +1, +1, -1, -1, -1, -1, -1。然而实际情况中，分类器预测的label和score都不可能如此完美；按score降序，加入根据给定的<em>rank</em>值，选择了前四个score(这个置信分数可能由softmax、SVM等方式计算得到)，认为这四个是正样本，由此来计算<em>recall</em>和<em>precision</em>。而实际上这四个样本中只有两个是正样本，那么此时的<em>recall</em>=2(选择中包含的正样本数)/5(总共的正样本数)=0.4，<em>precision</em>=2(选择中的正样本数)/4(认为是正样本的个数)=0.5。</p><p>可以看出，<em>recall</em>和<em>precision</em>均和<em>rank</em>值有关，也就是由此选择前k个样本，关于k的函数。那么根据<em>rank</em>取值的不同，这里总共可以计算10对precision-recall值，recall依次为为1/，将它们画出来，得到的就是PR曲线。</p><p>观察可以得到PR曲线的一个趋势就是，<em>recall</em>值越高，<em>precision</em>就越低。假如我选择所有样本来计算，那么当然包括了所有的正样本，此时的<em>recall</em>=1(此处认为ground truth所有框均被检测出来。这里有个问题需要思考下，在实际的目标检测问题中，是根据检测出的bbox来计算其与ground truth的IoU以判断bbox是否为正确检测，这样判定出的正确样本数为bbox的数量，往往不等于ground truth的数量；不过bbox的数量是需要经过NMS处理的，处理后基本与检测的目标数差不太多，)，<em>precision</em>就等于所有样本中正样本占比，当负样本占比很大时，那么<em>precision</em>就很小了。</p><hr><h2 id="内容参考："><a href="#内容参考：" class="headerlink" title="内容参考："></a>内容参考：</h2><p>博客：<a href="http://tarangshah.com/blog/2018-01-27/what-is-map-understanding-the-statistic-of-choice-for-comparing-object-detection-models/" target="_blank" rel="noopener">Measuring Object Detection models - mAP - What is Mean Average Precision?</a><br>代码：<a href="https://github.com/facebookresearch/Detectron/blob/05d04d3a024f0991339de45872d02f2f50669b3d/lib/datasets/voc_eval.py" target="_blank" rel="noopener">VOC数据集的mAP实现</a>、<a href="https://github.com/cocodataset/cocoapi/blob/master/PythonAPI/pycocotools/cocoeval.py" target="_blank" rel="noopener">COCO数据集mAP计算API</a><br>论文：<a href="https://arxiv.org/pdf/1607.03476.pdf" target="_blank" rel="noopener">End-to-end training of object class detectors for mean average precision</a></p>]]></content:encoded>
-      
-      <comments>http://yoursite.com/2018/11/24/mAP/#disqus_thread</comments>
     </item>
     
   </channel>
